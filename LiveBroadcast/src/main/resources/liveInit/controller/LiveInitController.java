@@ -2,6 +2,8 @@ package liveInit.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,13 +26,17 @@ public class LiveInitController {
 	
 	@RequestMapping("/initC")
 	@ResponseBody
-	public void initC(HttpServletRequest request,HttpServletResponse response) throws IOException{
+	public Map<String,Object> initC(HttpServletRequest request) throws IOException{
 	
+		Map<String,Object> liveMap = new HashMap<String,Object>();
 		jedisUtil.getResource();
-		String a = jedisUtil.getRedisStrValue("douyu_lol_rooms");
-		response.setHeader("Content-type", "text/html;charset=UTF-8");  
-		PrintWriter out = response.getWriter();
-		out.print(a);
+		String LOLInfo = jedisUtil.getRedisStrValue("LOL_rooms");
+		String DOTAInfo = jedisUtil.getRedisStrValue("DOTA2_rooms");
+		String hearthstoneInfo = jedisUtil.getRedisStrValue("hearthstone_rooms");
+		liveMap.put("LOLInfo",LOLInfo);
+		liveMap.put("DOTAInfo",DOTAInfo);
+		liveMap.put("hearthstoneInfo",hearthstoneInfo);
+		return liveMap;
 		
 	}
 }
