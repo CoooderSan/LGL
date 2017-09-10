@@ -10,7 +10,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 # 将爬出的该游戏在所有平台上的房间放入redis
 def put_data_in_redis(game, live_list):
-    r = redis.Redis(host='localhost', port=6379, db=0)
+    r = redis.Redis(host='127.0.0.1', port=6379, db=0)
     r.set('%s_rooms' % game, live_list)
 
 

@@ -41,8 +41,8 @@
 
 
 	<!-- springMVC静态资源不拦截 -->
-	<!-- <mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
-	<mvc:resources mapping="/outImages/**" location="/outImages/" /> -->
+	<mvc:resources mapping="/webapp/**" location="/webapp/" />
+	<!--<mvc:resources mapping="/outImages/**" location="/outImages/" /> -->
 
 	<bean
 		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">

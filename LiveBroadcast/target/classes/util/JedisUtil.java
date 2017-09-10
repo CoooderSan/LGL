@@ -44,7 +44,7 @@ public class JedisUtil {
 		Jedis jedis = null;//声明jedis对象
 		int cycleTimes = 0;//出现异常已经循环获取的次数
 		try{
-			jedis = new Jedis("192.168.2.135", 6379);//从pool中获取jedis对象
+			jedis = new Jedis("127.0.0.1", 6379);//从pool中获取jedis对象
 		}catch (JedisConnectionException ex) {
 			try {
 				//获取占用异常,捕获异常,等待0.5秒后继续执行获取
