@@ -3,6 +3,8 @@
 
 import urllib.request
 import traceback
+import global_list
+
 from bs4 import BeautifulSoup
 
 
@@ -23,6 +25,8 @@ def get_broadcast_list(game):
     room_list_url = url+'/g/%s' % game
     try:
         # 获取斗鱼房间列表页面
+        req = urllib.request.Request(room_list_url)
+        req.add_header(global_list.HEADERS)
         web_page = urllib.request.urlopen(room_list_url)
         data = web_page.read()
         data = data.decode('UTF-8')
