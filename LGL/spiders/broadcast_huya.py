@@ -27,7 +27,7 @@ def get_broadcast_list(game):
         # 获取斗鱼房间列表页面
         req = urllib.request.Request(room_list_url)
         req.add_header(global_list.HEADERS)
-        web_page = urllib.request.urlopen(room_list_url)
+        web_page = urllib.request.urlopen(req)
         data = web_page.read()
         data = data.decode('UTF-8')
         return data

@@ -83,7 +83,7 @@ def get_room_info(game):
         if viewers >= 10000:
             room_list.append(room_info)
 
-    # print(room_list)
+    print(room_list)
     return room_list
 
 
@@ -100,7 +100,7 @@ def get_room_info(game):
     #
     # scheduler.start()
 
-
+get_room_info('LOL')
 
 
 
