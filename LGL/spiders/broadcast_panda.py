@@ -20,6 +20,8 @@ def get_broadcast_list(game):
         game = 'dota2'
     elif game == 'hearthstone':
         game = 'hearthstone'
+    elif game == 'kingglory':
+        game = 'kingglory'
 
     room_list_url = url+'cate/%s' % game
     try:

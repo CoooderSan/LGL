@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-GLOBAL_GAME = ['LOL', 'DOTA2', 'hearthstone']
+GLOBAL_GAME = ['LOL', 'DOTA2', 'hearthstone','kingglory']
 
 HEADERS = {
     'Accept': 'image/webp,image/*,*/*;q=0.8',
