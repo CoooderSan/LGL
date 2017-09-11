@@ -25,8 +25,11 @@ def get_broadcast_list(game):
     try:
         # 获取熊猫房间列表页面
         req = urllib.request.Request(room_list_url)
-        req.add_header(global_list.HEADERS)
-        web_page = urllib.request.urlopen(room_list_url)
+        # 添加请求头
+        for i in global_list.HEADERS:
+            req.add_header(i, global_list.HEADERS[i])
+
+        web_page = urllib.request.urlopen(req)
         data = web_page.read()
         data = data.decode('UTF-8')
         return data
