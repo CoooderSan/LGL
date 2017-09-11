@@ -28,8 +28,8 @@ def get_broadcast_list(game):
     room_list_url = url+'/games/%s' % game
 
     try:
-        browser = webdriver.PhantomJS(executable_path="D:\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe")
-        # browser = webdriver.PhantomJS(executable_path="/root/phantomjs-2.1.1-linux-x86_64/bin/phantomjs")
+        # browser = webdriver.PhantomJS(executable_path="D:\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe")
+        browser = webdriver.PhantomJS(executable_path="/root/phantomjs-2.1.1-linux-x86_64/bin/phantomjs")
 
         browser.get(room_list_url)
         # time.sleep(3)
