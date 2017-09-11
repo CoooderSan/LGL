@@ -64,7 +64,7 @@
 			pageInit = pageCount*(pageInfo-1);
 			pageLength = allLiveList.length>pageCount*pageInfo?pageCount*pageInfo:allLiveList.length;
 			for(var i = pageInit;i<pageLength;i++){
-				$("#imgList").append("<div onclick=toLive('"+allLiveList[i].roomUrl+"') class='col-md-3'><div><img src='"+allLiveList[i].img+"' class='img-thumbnail' style='width:80%;height:20%'/>"
+				$("#imgList").append("<div class='col-md-3'><div><img onclick=toLive('"+allLiveList[i].roomUrl+"') src='"+allLiveList[i].img+"' class='img-thumbnail' style='width:80%;height:20%'/>"
 					+"<div style='width:80%;height:6%'>"
 					+"<table style='border-collapse:separate; border-spacing:0px 12px;width:100%'>"
 						+"<tr><td colspan='2'><span class='label label-warning' >"+allLiveList[i].title+"</span></tr></td>"
