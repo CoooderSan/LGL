@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="description" content="Learn how to quickly get started using our CSS framework. We have guides for a variety of skill levels.">
+    <title>Getting Started - Materialize</title>
+    <!-- Favicons-->
+    <link rel="apple-touch-icon-precomposed" href="http://materializecss.com/images/favicon/apple-touch-icon-152x152.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
+    <link rel="icon" href="http://materializecss.com/images/favicon/favicon-32x32.png" sizes="32x32">
+    <!--  Android 5 Chrome Color-->
+    <meta name="theme-color" content="#EE6E73">
+    <!-- CSS-->
+    <link href="css/prism.css" rel="stylesheet">
+    <link href="css/materialize.min.css" rel="stylesheet" type="text/css">
+    <link href="css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="css/css.css" rel="stylesheet" type="text/css">
+    <link href="css/icon.css" rel="stylesheet">
+    <script async="" src="js/analytics.js"></script><script id="twitter-wjs" src="js/widgets.js"></script><script>
+    window.liveSettings = {
+        api_key: "a0b49b34b93844c38eaee15690d86413",
+        picker: "bottom-right",
+        detectlang: true,
+        dynamic: true,
+        autocollect: true
+    };
+</script>
+    <script src="js/live.js"></script><style type="text/css">.txlive {display: none;}
+</style>
+    <script type="text/javascript" src="js/manifest.jsonp"></script><style type="text/css">.txlive-langselector { position:fixed;z-index:999999;min-width: 120px;line-height:32px;background-color:rgba( 0,0,0,0.75 );box-shadow: 0 0 4px rgba( 0,0,0,0.3 );color: #fff;font-size: 14px;font-family: inherit; }.txlive-langselector * { margin: 0;padding: 0;border: 0;font-size: 100%;font: inherit;vertical-align: baseline;border-radius: 0;-moz-border-radius:0;-webkit-border-radius:0;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-border-radius:0;opacity:1; }.txlive-langselector.txlive-langselector-topleft { top:0;left:0;right:auto;bottom:auto;border-radius: 0 0 2px 0;-moz-border-radius: 0 0 2px 0;-webkit-border-radius: 0 0 2px 0; }.txlive-langselector.txlive-langselector-topright { top:0;left:auto;right:0;bottom:auto;border-radius: 0 2px 0 0;-moz-border-radius: 0 2px 0 0;-webkit-border-radius: 0 2px 0 0; }.txlive-langselector.txlive-langselector-bottomleft { top:auto;left:0;right:auto;bottom:0;border-radius: 0 2px 0 0;-moz-border-radius: 0 2px 0 0;-webkit-border-radius: 0 2px 0 0; }.txlive-langselector.txlive-langselector-bottomright { top:auto;left:auto;right:0;bottom:0;border-radius: 2px 0 0 0;-moz-border-radius: 2px 0 0 0;-webkit-border-radius: 2px 0 0 0; }.txlive-langselector .txlive-langselector-toggle { overflow: hidden;display: block;padding:2px 16px;width: 100%;height:36px;cursor:pointer;cursor:hand; }.txlive-langselector.txlive-langselector-topleft .txlive-langselector-toggle { overflow: hidden;display: block;border-top:2px solid #006f9f;padding:2px 16px;height:36px;line-height:32px;cursor:pointer;cursor:hand; }.txlive-langselector.txlive-langselector-topright .txlive-langselector-toggle { overflow: hidden;display: block;border-top:2px solid #006f9f;padding:2px 16px;height:36px;line-height:32px;cursor:pointer;cursor:hand; }.txlive-langselector.txlive-langselector-bottomleft .txlive-langselector-toggle { overflow: hidden;display: block;border-bottom:2px solid #006f9f;padding:2px 16px;height:36px;line-height:32px;cursor:pointer;cursor:hand; }.txlive-langselector.txlive-langselector-bottomright .txlive-langselector-toggle { overflow: hidden;display: block;border-bottom:2px solid #006f9f;padding:2px 16px;height:36px;line-height:32px;cursor:pointer;cursor:hand; }.txlive-langselector .txlive-langselector-current { float: left;padding: 0;max-width: 200px;overflow:hidden;white-space: nowrap;text-overflow:ellipsis; }.txlive-langselector .txlive-langselector-marker { float: right;display: block;position:relative;width:0;height:0;margin-left:8px;margin-top: 13px;border-right:4px dashed transparent;border-left:4px dashed transparent;}.txlive-langselector-topright .txlive-langselector-marker,.txlive-langselector-topleft .txlive-langselector-marker {border-top:4px solid #fff;}.txlive-langselector-bottomright .txlive-langselector-marker,.txlive-langselector-bottomleft .txlive-langselector-marker {border-bottom:4px solid #fff;}.txlive-langselector-list { position:absolute;width: 100%;margin:0;padding:10px 0;display:none;background-color:#eaf1f7;box-shadow: 0 0 4px rgba( 0,0,0,0.3 );color:#666;list-style-type:none; }.txlive-langselector-list.txlive-langselector-list-opened { display:block; }.txlive-langselector-list > li {padding:0 16px;width:100%;overflow:hidden;white-space: nowrap;text-overflow:ellipsis;}.txlive-langselector-list > li:hover {background-color:#b0b9c1;color:#fff;cursor:pointer;cursor:hand;}.txlive-langselector-topright > .txlive-langselector-list {top:40px;left:auto;right:0;bottom:auto;border-bottom: 1px solid #f4f7f9;}.txlive-langselector-topleft > .txlive-langselector-list {top:40px;left:0;right:auto;bottom:auto;border-bottom: 1px solid #f4f7f9;}.txlive-langselector-bottomright > .txlive-langselector-list {top:auto;left:auto;right:0;bottom:40px;border-top: 1px solid #f4f7f9;}.txlive-langselector-bottomleft > .txlive-langselector-list {top:auto;left:0;right:auto;bottom:40px;border-top: 1px solid #f4f7f9;}.txlive-langselector-topright > .txlive-langselector-list,.txlive-langselector-bottomright > .txlive-langselector-list {border-radius: 2px 0 0 2px;-moz-border-radius: 2px 0 0 2px;-webkit-border-radius: 2px 0 0 2px;}.txlive-langselector-topleft > .txlive-langselector-list,.txlive-langselector-bottomleft > .txlive-langselector-list {border-radius: 0 2px 2px 0;-moz-border-radius: 0 2px 2px 0;-webkit-border-radius: 0 2px 2px 0;}</style><script id="_carbonads_projs" type="text/javascript" src="Getting%20Started%20-%20Materialize_files/C6AILKT.json"></script></head>
+<body>
+<header>
+
+    <a class=" btn waves-effect ">王者</a>
+
+    <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="material-icons">menu</i></a></div>
+    <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(0%);">
+        <li class="logo"><a id="logo-container" href="http://materializecss.com/" class="brand-logo">
+            <object id="front-page-logo" type="image/svg+xml" data="image/materialize.svg">Your browser does not support SVG</object></a></li>
+        <li class="search">
+            <div class="search-wrapper card">
+                <input id="search"><i class="material-icons">search</i>
+                <div class="search-results"></div>
+            </div>
+        </li>
+        <li class="bold"><a  class="waves-effect waves-brown active">LOL</a></li>
+        <li class="bold active"><a  class="waves-effect waves-teal">炉石传说</a></li>
+        <li class="no-padding">
+
+            <ul class="collapsible collapsible-accordion">
+                <li class="bold"><a class="collapsible-header waves-effect waves-teal">DOTA2</a>
+
+                </li>
+                <li class="bold"><a class=" waves-effect waves-teal ">王者荣耀</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="http://materializecss.com/badges.html">Badges</a></li>
+                            <li><a href="http://materializecss.com/buttons.html">Buttons</a></li>
+                            <li><a href="http://materializecss.com/breadcrumbs.html">Breadcrumbs</a></li>
+                            <li><a href="http://materializecss.com/cards.html">Cards</a></li>
+                            <li><a href="http://materializecss.com/chips.html">Chips</a></li>
+                            <li><a href="http://materializecss.com/collections.html">Collections</a></li>
+                            <li><a href="http://materializecss.com/footer.html">Footer</a></li>
+                            <li><a href="http://materializecss.com/forms.html">Forms</a></li>
+                            <li><a href="http://materializecss.com/icons.html">Icons</a></li>
+                            <li><a href="http://materializecss.com/navbar.html">Navbar</a></li>
+                            <li><a href="http://materializecss.com/pagination.html">Pagination</a></li>
+                            <li><a href="http://materializecss.com/preloader.html">Preloader</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="bold"><a class="collapsible-header waves-effect waves-teal">JavaScript</a>
+                    <div class="collapsible-body">
+                        <ul>
+                            <li><a href="http://materializecss.com/carousel.html">Carousel</a></li>
+                            <li><a href="http://materializecss.com/collapsible.html">Collapsible</a></li>
+                            <li><a href="http://materializecss.com/dialogs.html">Dialogs</a></li>
+                            <li><a href="http://materializecss.com/dropdown.html">Dropdown</a></li>
+                            <li><a href="http://materializecss.com/feature-discovery.html">FeatureDiscovery</a></li>
+                            <li><a href="http://materializecss.com/media.html">Media</a></li>
+                            <li><a href="http://materializecss.com/modals.html">Modals</a></li>
+                            <li><a href="http://materializecss.com/parallax.html">Parallax</a></li>
+                            <li><a href="http://materializecss.com/pushpin.html">Pushpin</a></li>
+                            <li><a href="http://materializecss.com/scrollfire.html">ScrollFire</a></li>
+                            <li><a href="http://materializecss.com/scrollspy.html">Scrollspy</a></li>
+                            <li><a href="http://materializecss.com/side-nav.html">SideNav</a></li>
+                            <li><a href="http://materializecss.com/tabs.html">Tabs</a></li>
+                            <li><a href="http://materializecss.com/transitions.html">Transitions</a></li>
+                            <li><a href="http://materializecss.com/waves.html">Waves</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </li>
+        <li class="bold"><a href="http://materializecss.com/mobile.html" class="waves-effect waves-teal">Mobile</a></li>
+        <li class="bold"><a href="http://materializecss.com/showcase.html" class="waves-effect waves-teal">展示</a></li>
+        <li class="bold"><a href="http://materializecss.com/themes.html" class="waves-effect waves-teal">Themes<span class="new badge"></span></a></li>
+    </ul>
+</header>
+<main>
+
+</main>
+
+
+</footer>
+
+<!--  Scripts-->
+<script src="js/jquery-3.js"></script>
+<script>if (!window.jQuery) { document.write('<script src="js/jquery-3.2.1.min.js"><\/script>'); }
+</script>
+<script src="js/jquery.js"></script>
+<script src="js/prism.js"></script>
+<script src="js/lunr.js"></script>
+<script src="js/search.js"></script>
+<script src="js/materialize.js"></script>
+<script src="js/init.js"></script>
+<!-- Twitter Button -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+<!-- Google Plus Button-->
+<script src="Getting%20Started%20-%20Materialize_files/platform.js" async="" defer="defer"></script>
+
+<!--  Google Analytics  -->
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-56218128-1', 'auto');
+    ga('require', 'displayfeatures');
+    ga('send', 'pageview');
+</script>
+
+<script>
+    $('#download-source, #download-sass').on('click', function () {
+        $('#download').slideUp(
+                { duration: 500,
+                    easing: "easeOutQuart",
+                    queue: false,
+                    complete: function()
+                    { $('#download-thanks').slideDown({ duration: 300,
+                        easing: "easeOutQuart"}); }
+                });
+
+    });
+</script>
+
+<div id="tx-live-lang-container" class="txlive-langselector txlive-langselector-bottomright"><ul id="tx-live-lang-picker" class="txlive-langselector-list notranslate"><li data-value="en">English</li><li data-value="ar">العربية</li><li data-value="zh">中文</li><li data-value="cs">Čeština</li><li data-value="nl">Nederlands</li><li data-value="fr">Français</li><li data-value="de">Deutsch</li><li data-value="ko">한국어</li><li data-value="pt">Português</li><li data-value="ru">Русский</li><li data-value="es">Español</li><li data-value="sv">Svenska</li><li data-value="th">ภาษาไทย</li><li data-value="tr">Türkçe</li></ul><div class="txlive-langselector-toggle notranslate" id="tx-live-lang-toggle"><span class="txlive-langselector-current" id="tx-live-lang-current">中文</span><span class="txlive-langselector-marker"></span></div></div><div class="hiddendiv common"></div><div class="drag-target" data-sidenav="nav-mobile" style="left: 0px; touch-action: pan-y;"></div></body></html>

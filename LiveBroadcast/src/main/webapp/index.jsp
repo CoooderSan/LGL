@@ -92,18 +92,18 @@
 
 
 <body>
-<div class='container'>
-	<ul class="nav nav-tabs" style="margin-bottom: 1%">
-		<li id="li1" class="active" onclick="LiveTypeInfo('LOL',1,0)"><a href="#">LOL</a></li>
-		<li id="li2" onclick="LiveTypeInfo('Dota',1,0)"><a href="#">Dota</a></li>
-		<li id="li3" onclick="LiveTypeInfo('hearthstone',1,0)"><a href="#">炉石传说</a></li>
-	</ul>
-	<div style="margin-top: 5%" id ="imgList"></div>
-</div>
-<div style="text-align: center;">
-	<ul class="pagination pagination-lg" id ="ulPage">
-	</ul>
-</div>
+<%--<div class='container'>--%>
+	<%--<ul class="nav nav-tabs" style="margin-bottom: 1%">--%>
+		<%--<li id="li1" class="active" onclick="LiveTypeInfo('LOL',1,0)"><a href="#">LOL</a></li>--%>
+		<%--<li id="li2" onclick="LiveTypeInfo('Dota',1,0)"><a href="#">Dota</a></li>--%>
+		<%--<li id="li3" onclick="LiveTypeInfo('hearthstone',1,0)"><a href="#">炉石传说</a></li>--%>
+	<%--</ul>--%>
+	<%--<div style="margin-top: 5%" id ="imgList"></div>--%>
+<%--</div>--%>
+<%--<div style="text-align: center;">--%>
+	<%--<ul class="pagination pagination-lg" id ="ulPage">--%>
+	<%--</ul>--%>
+<%--</div>--%>
 </body>
 
 </html>

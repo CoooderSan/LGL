@@ -64,7 +64,7 @@
 			pageInit = pageCount*(pageInfo-1);
 			pageLength = allLiveList.length>pageCount*pageInfo?pageCount*pageInfo:allLiveList.length;
 			for(var i = pageInit;i<pageLength;i++){
-				$("#imgList").append("<div onclick=toLive('"+allLiveList[i].roomUrl+"') class='col-md-3'><div><img src='"+allLiveList[i].img+"' class='img-thumbnail' style='width:80%;height:20%'/>"
+				$("#imgList").append("<div class='col-md-3'><div><img onclick=toLive('"+allLiveList[i].roomUrl+"') src='"+allLiveList[i].img+"' class='img-thumbnail' style='width:80%;height:20%'/>"
 					+"<div style='width:80%;height:6%'>"
 					+"<table style='border-collapse:separate; border-spacing:0px 12px;width:100%'>"
 						+"<tr><td colspan='2'><span class='label label-warning' >"+allLiveList[i].title+"</span></tr></td>"
@@ -92,18 +92,18 @@
 
 
 <body>
-<div class='container'>
-	<ul class="nav nav-tabs" style="margin-bottom: 1%">
-		<li id="li1" class="active" onclick="LiveTypeInfo('LOL',1,0)"><a href="#">LOL</a></li>
-		<li id="li2" onclick="LiveTypeInfo('Dota',1,0)"><a href="#">Dota</a></li>
-		<li id="li3" onclick="LiveTypeInfo('hearthstone',1,0)"><a href="#">炉石传说</a></li>
-	</ul>
-	<div style="margin-top: 5%" id ="imgList"></div>
-</div>
-<div style="text-align: center;">
-	<ul class="pagination pagination-lg" id ="ulPage">
-	</ul>
-</div>
+<%--<div class='container'>--%>
+	<%--<ul class="nav nav-tabs" style="margin-bottom: 1%">--%>
+		<%--<li id="li1" class="active" onclick="LiveTypeInfo('LOL',1,0)"><a href="#">LOL</a></li>--%>
+		<%--<li id="li2" onclick="LiveTypeInfo('Dota',1,0)"><a href="#">Dota</a></li>--%>
+		<%--<li id="li3" onclick="LiveTypeInfo('hearthstone',1,0)"><a href="#">炉石传说</a></li>--%>
+	<%--</ul>--%>
+	<%--<div style="margin-top: 5%" id ="imgList"></div>--%>
+<%--</div>--%>
+<%--<div style="text-align: center;">--%>
+	<%--<ul class="pagination pagination-lg" id ="ulPage">--%>
+	<%--</ul>--%>
+<%--</div>--%>
 </body>
 
 </html>
