@@ -37,7 +37,7 @@ def scheduler_tasks():
 
     # 通过定时任务来持续刷新房间列表，每30分钟一次
     scheduler = BlockingScheduler()
-    scheduler.add_job(load_live_list, 'cron', minute='*/30')
+    scheduler.add_job(load_live_list, 'cron', minute='*/15')
 
     scheduler.start()
 
