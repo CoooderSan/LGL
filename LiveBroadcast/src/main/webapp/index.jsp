@@ -7,6 +7,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="msapplication-tap-highlight" content="no">
 <!-- Favicons-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link rel="apple-touch-icon-precomposed" href="http://materializecss.com/images/favicon/apple-touch-icon-152x152.png">
 <meta name="msapplication-TileColor" content="#FFFFFF">
 <meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
@@ -37,7 +38,7 @@
 	$(function(){
 		$.ajax({
 			url:"liveInit/initC",
-			success:function(date){	
+			success:function(date){
 				var date = eval(date);
 				returnLiveInfo = date;
 				LiveTypeInfo("LOL",1,0);
@@ -59,10 +60,10 @@
 			$("#li3").attr("class","bold");
 			$("#li4").attr("class","bold");
 			$("#pageTitleName").html("英雄联盟");
-			dateList = returnLiveInfo.LOLInfo;	
+			dateList = returnLiveInfo.LOLInfo;
 				break;
 			case "Dota":
-			dateList = returnLiveInfo.DOTAInfo;	
+			dateList = returnLiveInfo.DOTAInfo;
 			$("#li1").attr("class","bold");
 			$("#li2").attr("class","bold");
 			$("#li3").attr("class","bold active");
@@ -74,16 +75,16 @@
 			$("#li1").attr("class","bold");
 			$("#li2").attr("class","bold active");
 			$("#li3").attr("class","bold");
-			$("#li4").attr("class","bold");	
-			$("#pageTitleName").html("炉石传说");	
+			$("#li4").attr("class","bold");
+			$("#pageTitleName").html("炉石传说");
 				break;
 			case "kingG":
 			dateList = returnLiveInfo.kingGInfo;
 			$("#li1").attr("class","bold");
 			$("#li2").attr("class","bold");
 			$("#li3").attr("class","bold");
-			$("#li4").attr("class","bold active");	
-			$("#pageTitleName").html("王者荣耀");		
+			$("#li4").attr("class","bold active");
+			$("#pageTitleName").html("王者荣耀");
 				break;
 		}
 		if("" != dateList && null != dateList && undefined != dateList){
@@ -94,7 +95,7 @@
 				if("" != dateList[j] && null != dateList[j] && undefined != dateList[j]){
 					allLiveList = allLiveList.concat(dateList[j]);
 					date = dateList[j];
-				}	
+				}
 			}
 			pageInfo = pageInfo<0?1:pageInfo;
 			pageInit = pageCount*(pageInfo-1);
@@ -132,13 +133,13 @@
 					$("#ulPage").append("<li class='waves-effect' onclick=LiveTypeInfo('"+liveType+"',"+(i+1)+",1)><a href='#'>"+(i+1)+"</a></li>");
 				}
 				$("#ulPage").append("<li class='waves-effect' onclick=LiveTypeInfo('"+liveType+"',"+pageNum+",1)><a href='#'><i class='material-icons'>chevron_right</i></a></li>");
-				
+
 			}
 		}else{
 			$("#imgList").empty();
 			$("#ulPage").empty();
 		}
-		
+
 	}
 </script>
 
