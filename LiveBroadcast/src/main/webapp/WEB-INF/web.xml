@@ -95,6 +95,14 @@
          <servlet-name >default </servlet-name >             
          <url-pattern >*.woff2</url-pattern>        
     </servlet-mapping >
+    <servlet-mapping >
+         <servlet-name >default </servlet-name >             
+         <url-pattern >*.jpg</url-pattern>        
+    </servlet-mapping >
+    <servlet-mapping >
+         <servlet-name >default </servlet-name >             
+         <url-pattern >*.png</url-pattern>        
+    </servlet-mapping >
   <!-- 访问首页 -->
   <welcome-file-list>
     <welcome-file>index.jsp</welcome-file>

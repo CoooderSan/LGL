@@ -28,9 +28,11 @@ public class LiveInitController {
 		String LOLInfo = jedisUtil.getRedisStrValue("LOL_rooms");
 		String DOTAInfo = jedisUtil.getRedisStrValue("DOTA2_rooms");
 		String hearthstoneInfo = jedisUtil.getRedisStrValue("hearthstone_rooms");
+		String kingGInfo = jedisUtil.getRedisStrValue("kingglory_rooms");
 		liveMap.put("LOLInfo",LOLInfo);
 		liveMap.put("DOTAInfo",DOTAInfo);
 		liveMap.put("hearthstoneInfo",hearthstoneInfo);
+		liveMap.put("kingGInfo",kingGInfo);
 		return liveMap;
 		
 	}
