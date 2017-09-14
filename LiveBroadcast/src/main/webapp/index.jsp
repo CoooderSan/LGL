@@ -2,16 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html lang="zh"><head>
+<title>LGL</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="msapplication-tap-highlight" content="no">
 <!-- Favicons-->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link rel="apple-touch-icon-precomposed" href="http://materializecss.com/images/favicon/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon-precomposed" href="image/LGLTitleS.png">
 <meta name="msapplication-TileColor" content="#FFFFFF">
-<meta name="msapplication-TileImage" content="images/favicon/mstile-144x144.png">
-<link rel="icon" href="http://materializecss.com/images/favicon/favicon-32x32.png" sizes="32x32">
+<meta name="msapplication-TileImage" content="image/LGLTitleS.png">
+<link rel="icon" href="image/LGLTitleS.png" sizes="32x32">
 <!--  Android 5 Chrome Color-->
 <meta name="theme-color" content="#EE6E73">
 <!-- CSS-->
