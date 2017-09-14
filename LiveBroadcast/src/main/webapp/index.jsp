@@ -29,7 +29,6 @@
         autocollect: true
     };
 </script>
-    <script src="js/live.js"></script><style type="text/css">.txlive {display: none;}
 </style>
 <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" >
