@@ -97,7 +97,7 @@
 				}	
 			}
 			pageInfo = pageInfo<0?1:pageInfo;
-			pageInit = pageCount*(pageInfo-1);
+			pageInit = pageCount*(pageInfo-1);5
 			pageLength = allLiveList.length>pageCount*pageInfo?pageCount*pageInfo:allLiveList.length;
 			var htmlMess ="";
 			for(var i = pageInit;i<pageLength;i++){
