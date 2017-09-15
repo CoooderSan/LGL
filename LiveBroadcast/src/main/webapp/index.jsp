@@ -21,6 +21,9 @@
 <link href="css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
 <link href="css/css.css" rel="stylesheet" type="text/css">
 <link href="css/icon.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">
+<link rel="stylesheet" href="css/style.css">
 <script>
     window.liveSettings = {
         api_key: "a0b49b34b93844c38eaee15690d86413",
@@ -82,6 +85,8 @@
 		window.open(roomUrl);
 	}
 	function LiveTypeInfo(liveType,pageInfo,type,searchContent,event){
+		$("#errorPage").attr("style","display:none");
+		$("#errorValue").val("0%");
 		roomsTypeNow = liveType;
 		var dateList;
 		var date;
@@ -138,6 +143,7 @@
 				});
 				if(allLiveList == ""){
 					$("#ulPage").empty();
+					$("#errorPage").attr("style","display:block");
 					return;
 				}
 			}else{
@@ -194,6 +200,7 @@
 		}else{
 			$("#imgList").empty();
 			$("#ulPage").empty();
+			$("#errorPage").attr("style","display:block");
 		}
 
 	}
@@ -227,41 +234,34 @@
         <li id="li4" onclick="LiveTypeInfo('kingG',1,0)" class="bold"><a class=" waves-effect waves-teal " style="font-weight:bold">王者荣耀</a></li>
     </ul>
 </header>
-
-																																																																																																																																																																																						 <div class="htmleaf-container" >
-
-<div id="loadingContainer" >
-<div class="loadingbar" >
-<div class="marker_container">
-<div class="marker"></div>
-					  <div class="marker"></div>
-											<div class="marker"></div>
-																  <div class="marker"></div>
-																						</div>
-																						  <div class="filler_wrapper">
-<div class="filler">
-<span class="value">0%</span>
-						</div>
-						  </div>
-							</div>
-							  </div>
-<!--<a id="plus_ten" class="btn-floating btn-large waves-effect waves-light red"></a>-->
-<div style="position: absolute; left: 52%;">
-<a id="plus_ten" class="btn-floating waves-effect waves-light red z-depth-5" style="width: 120px;height: 120px;padding: 30px;border-radius: 50%;top: -10%">
-<span style="display:block;;">
-<i class="large material-icons" style="vertical-align: middle;">fingerprint</i>
-																			 </span>
-																			   </a>
-																				 </div>
-
-
-																				   </div>
 <main>
 <div id="imgList" class="container">
     <!--房间列表-->
 </div>
-
-
+ <div id="errorPage" style="display: none;" >
+    <div id="loadingContainer" >
+        <div class="loadingbar" >
+            <div class="marker_container">
+                <div class="marker"></div>
+                <div class="marker"></div>
+                <div class="marker"></div>
+                <div class="marker"></div>
+            </div>
+            <div class="filler_wrapper">
+                <div class="filler">
+                    <span id="errorValue" class="value">0%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="position: absolute; left: 52%;">
+        <a id="plus_ten" class="btn-floating waves-effect waves-light red z-depth-5" style="width: 120px;height: 120px;padding: 30px;border-radius: 50%;top: -10%">
+            <span style="display:block;;">
+                <i class="large material-icons" style="vertical-align: middle;">fingerprint</i>
+            </span>
+        </a>
+    </div>
+</div>
 </main>
 <footer>
         <ul id = "ulPage" class="pagination" style="text-align: center"></ul>
@@ -272,8 +272,8 @@
 <script src="js/jquery-3.js"></script>
 <script>if (!window.jQuery) { document.write('<script src="js/jquery-3.2.1.min.js"><\/script>'); }
 </script>
-  !--错误页面js-->
-  <script type="text/javascript" src="js/blower-loading.js"></script>
+<!--错误页面js-->
+<script type="text/javascript" src="js/blower-loading.js"></script>
 <script src="js/jquery.js"></script>
 <script src="js/prism.js"></script>
 <script src="js/lunr.js"></script>
@@ -283,14 +283,13 @@
 </body>
 
 <!--错误页面方法-->
-	<script type="text/javascript">
-		var blower = null;
-		$(document).ready(function () {
-			blower = new LoadingBlower("#loadingContainer");
-		$("#plus_ten").on("click", function () {
-			blower.addProgress(0.1);
-			console.log('btn clicked');
-		});
-		});
+<script type="text/javascript">
+    var blower = null;
+    $(document).ready(function () {
+        blower = new LoadingBlower("#loadingContainer");
+        $("#plus_ten").on("click", function () {
+            blower.addProgress(0.1);
+        });
+    });
 </script>
 </html>
