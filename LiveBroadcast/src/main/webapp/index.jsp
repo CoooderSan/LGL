@@ -36,6 +36,7 @@
 	var returnLiveInfo ;
 	var pageCount = 12;
 	var roomsTypeNow = "";
+	var pageNum = 0;
 	$(function(){
 		$.ajax({
 			url:"liveInit/initC",
@@ -55,11 +56,32 @@
              }
         });
 	})
+	$(document).click(function(e) { // 在页面任意位置点击而触发此事件
+		var clickedNode = event.target;
+		var parentNode = event.target.parentNode;
+		var parentNodeParent = event.target.parentNode.parentNode;
+		var NodeType = event.target.nodeName;
+		var parentNodeType = event.target.parentNode.nodeName;
+		var parentNodeParentType = event.target.parentNode.parentNode.nodeName;
+ 	 	if(parentNode.className == "waves-effect" || parentNodeParent.className == "waves-effect"){
+ 	 		$("#ulPage").children("li").attr("class","waves-effect");
+ 	 		if(parentNode.className == "waves-effect"){
+ 	 			parentNode.className = "active";
+	 	 	}else if(parentNodeParent.className == "waves-effect"){
+	 	 		if(parentNodeParent.id == "left"){
+	 	 			$("#ulPage").children("li")[1].className = "active"
+	 	 		}else{
+	 	 			$("#ulPage").children("li")[pageNum].className = "active";
+	 	 		}
+	 	 		parentNodeParent.className = "waves-effect";
+	 	 	}
+ 	 	}
+	})
 	
 	function toLive(roomUrl){
 		window.open(roomUrl);
 	}
-	function LiveTypeInfo(liveType,pageInfo,type,searchContent){
+	function LiveTypeInfo(liveType,pageInfo,type,searchContent,event){
 		roomsTypeNow = liveType;
 		var dateList;
 		var date;
@@ -128,7 +150,7 @@
 			}).reverse();
 			
 			pageInfo = pageInfo<0?1:pageInfo;
-			pageInit = pageCount*(pageInfo-1);5
+			pageInit = pageCount*(pageInfo-1);
 			pageLength = allLiveList.length>pageCount*pageInfo?pageCount*pageInfo:allLiveList.length;
 			var htmlMess ="";
 			for(var i = pageInit;i<pageLength;i++){
@@ -156,13 +178,17 @@
 			}
 			$("#imgList").append(htmlMess);
 			if(type == 0){
-				var pageNum = Math.ceil(allLiveList.length/pageCount);
+				pageNum = Math.ceil(allLiveList.length/pageCount);
 				$("#ulPage").empty();
-				$("#ulPage").append("<li class='waves-effect' onclick=LiveTypeInfo('"+liveType+"',1,1)><a href='#'><i class='material-icons'>chevron_left</i></a></li>");
+				$("#ulPage").append("<li id='left' class='waves-effect' onclick=LiveTypeInfo('"+liveType+"',1,1)><a href='#'><i class='material-icons'>chevron_left</i></a></li>");
 				for(var i=0;i<pageNum;i++){
-					$("#ulPage").append("<li class='waves-effect' onclick=LiveTypeInfo('"+liveType+"',"+(i+1)+",1)><a href='#'>"+(i+1)+"</a></li>");
+					if(i == 0){
+						$("#ulPage").append("<li class='active' onclick=LiveTypeInfo('"+liveType+"',"+(i+1)+",1)><a href='#'>"+(i+1)+"</a></li>");
+					}else{
+						$("#ulPage").append("<li class='waves-effect' onclick=LiveTypeInfo('"+liveType+"',"+(i+1)+",1)><a href='#'>"+(i+1)+"</a></li>");
+					}
 				}
-				$("#ulPage").append("<li class='waves-effect' onclick=LiveTypeInfo('"+liveType+"',"+pageNum+",1)><a href='#'><i class='material-icons'>chevron_right</i></a></li>");
+				$("#ulPage").append("<li id='right' class='waves-effect' onclick=LiveTypeInfo('"+liveType+"',"+pageNum+",1)><a href='#'><i class='material-icons'>chevron_right</i></a></li>");
 
 			}
 		}else{
