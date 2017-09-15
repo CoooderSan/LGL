@@ -35,6 +35,7 @@
 <script type="text/javascript" >
 	var returnLiveInfo ;
 	var pageCount = 12;
+	var roomsTypeNow = "";
 	$(function(){
 		$.ajax({
 			url:"liveInit/initC",
@@ -44,11 +45,22 @@
 				LiveTypeInfo("LOL",1,0);
 			}
 		})
+		$("#searchI").click(function(){
+			LiveTypeInfo(roomsTypeNow,1,0,$("#search").val());
+			
+		})
+		$("body").keydown(function() {
+             if (event.keyCode == "13") {//keyCode=13是回车键
+                 LiveTypeInfo(roomsTypeNow,1,0,$("#search").val());
+             }
+        });
 	})
+	
 	function toLive(roomUrl){
 		window.open(roomUrl);
 	}
-	function LiveTypeInfo(liveType,pageInfo,type){
+	function LiveTypeInfo(liveType,pageInfo,type,searchContent){
+		roomsTypeNow = liveType;
 		var dateList;
 		var date;
 		$(window).scrollTop(0);
@@ -97,8 +109,26 @@
 					date = dateList[j];
 				}
 			}
+			if(searchContent != undefined && searchContent != ""){
+				//根据房间名和主播搜索直播间
+				var allLiveList = allLiveList.filter(function(a) {
+				    return ((a.broadcaster.indexOf(searchContent) > -1)||(a.title.indexOf(searchContent) > -1))?true:false;
+				});
+				if(allLiveList == ""){
+					$("#ulPage").empty();
+					return;
+				}
+			}else{
+				$("#search").val("");
+			}
+			
+			//按人气降序排序
+			allLiveList.sort(function(a,b){
+				return a.viewers-b.viewers
+			}).reverse();
+			
 			pageInfo = pageInfo<0?1:pageInfo;
-			pageInit = pageCount*(pageInfo-1);
+			pageInit = pageCount*(pageInfo-1);5
 			pageLength = allLiveList.length>pageCount*pageInfo?pageCount*pageInfo:allLiveList.length;
 			var htmlMess ="";
 			for(var i = pageInit;i<pageLength;i++){
@@ -144,7 +174,7 @@
 </script>
 
 
-<body>
+<body id="bodyId" oncontextmenu="return false" ondragstart="return false" onselectstart="return false" onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="return false" onmouseup="document.selection.empty()">
 <header>
     <!--title-->
     <nav class="top-nav">
@@ -161,7 +191,7 @@
             <object id="front-page-logo" type="image/svg+xml" data="image/lgl.svg">Your browser does not support SVG</object></a></li>
         <li class="search">
             <div class="search-wrapper card">
-                <input id="search"><i class="material-icons">search</i>
+                <input id="search"><i id="searchI" class="material-icons">search</i>
                 <div class="search-results"></div>
             </div>
         </li>
