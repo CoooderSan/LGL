@@ -58,6 +58,24 @@
                  LiveTypeInfo(roomsTypeNow,1,0,$("#search").val());
              }
         });
+        $("#plus_ten").click(function(){
+        	if($("#errorValue").html().substring(0,$("#errorValue").html().length-1) >= 100){
+        		Materialize.toast('加载好了也没什么卵用，兄弟！', 4000);
+        	}
+        });
+        $('body').on("click",'.heart',function()
+        {
+            if($(this).attr("rel") === 'like')
+            {
+                $(this).addClass("heartAnimation").attr("rel","unlike");
+
+            }
+            else
+            {
+                $(this).removeClass("heartAnimation").attr("rel","like");
+                $(this).css("background-position","left");
+            }
+        });
 	})
 	$(document).click(function(e) { // 在页面任意位置点击而触发此事件
 		var clickedNode = event.target;
@@ -68,15 +86,22 @@
 		var parentNodeParentType = event.target.parentNode.parentNode.nodeName;
  	 	if(parentNode.className == "waves-effect" || parentNodeParent.className == "waves-effect"){
  	 		$("#ulPage").children("li").attr("class","waves-effect");
- 	 		if(parentNode.className == "waves-effect"){
- 	 			parentNode.className = "active";
-	 	 	}else if(parentNodeParent.className == "waves-effect"){
+ 	 		if(parentNodeParent.className == "waves-effect"){
 	 	 		if(parentNodeParent.id == "left"){
-	 	 			$("#ulPage").children("li")[1].className = "active"
-	 	 		}else{
+	 	 			$("#ulPage").children("li")[1].className = "active";
+	 	 		}else if(parentNodeParent.id == "right"){
 	 	 			$("#ulPage").children("li")[pageNum].className = "active";
 	 	 		}
 	 	 		parentNodeParent.className = "waves-effect";
+	 	 	}else if(parentNode.className == "waves-effect"){
+	 	 		if(parentNode.id == "left"){
+	 	 			$("#ulPage").children("li")[1].className = "active";
+	 	 		}else if(parentNode.id == "right"){
+	 	 			$("#ulPage").children("li")[pageNum].className = "active";
+	 	 		}else{
+	 	 			parentNode.className = "active";
+	 	 		}
+ 	 			
 	 	 	}
  	 	}
 	})
@@ -84,9 +109,10 @@
 	function toLive(roomUrl){
 		window.open(roomUrl);
 	}
-	function LiveTypeInfo(liveType,pageInfo,type,searchContent,event){
+	function LiveTypeInfo(liveType,pageInfo,type,searchContent){
 		$("#errorPage").attr("style","display:none");
-		$("#errorValue").val("0%");
+		$("#errorValue").html("0%");
+		$("#errorValue").parent().attr("style","width:0%");
 		roomsTypeNow = liveType;
 		var dateList;
 		var date;
@@ -172,6 +198,7 @@
 		                +"<div class='card-content'>"
 		                    +"<div class='card-title activator grey-text text-darken-4'><h5 class='truncate' style='font-weight:bold' >"+allLiveList[i].title+"</h5></div>"
 		                	+"<div>"
+		                		+"<a class='heart' rel='like' style='bottom: 6%; left: 30%'></a>"
 		                		+"<span><i class='material-icons' style='vertical-align:middle;'>perm_identity</i>&nbsp;"+allLiveList[i].broadcaster+"</span>"
 		                		+"<span style='float: right;'><i class='material-icons' style='vertical-align: middle;'>visibility</i>&nbsp;"+(allLiveList[i].viewers/10000)+"万</span>"
 		            		+"</div>"
@@ -202,7 +229,6 @@
 			$("#ulPage").empty();
 			$("#errorPage").attr("style","display:block");
 		}
-
 	}
 </script>
 
@@ -255,7 +281,7 @@
         </div>
     </div>
     <div style="position: absolute; left: 52%;">
-        <a id="plus_ten" class="btn-floating waves-effect waves-light red z-depth-5" style="width: 120px;height: 120px;padding: 30px;border-radius: 50%;top: -10%">
+        <a id="plus_ten" class="tooltipped btn-floating waves-effect waves-light red z-depth-5" style="width: 120px;height: 120px;padding: 30px;border-radius: 50%;top: -10%"; data-position="bottom"; data-delay="50"; data-tooltip="加载不出来，请点击加速~">
             <span style="display:block;;">
                 <i class="large material-icons" style="vertical-align: middle;">fingerprint</i>
             </span>
