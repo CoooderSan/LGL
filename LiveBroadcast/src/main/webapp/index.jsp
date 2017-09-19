@@ -52,11 +52,12 @@
 			LiveTypeInfo(roomsTypeNow,1,0,$("#search").val());
 			
 		})
-		$("body").keydown(function() {
-			 var event = window.event || arguments.callee.caller.arguments[0];
-             if (event.keyCode == "13") {//keyCode=13是回车键
-                 LiveTypeInfo(roomsTypeNow,1,0,$("#search").val());
-             }
+		$("body").keydown(function(e) {
+			 var curKey = e.which;
+             if(curKey == 13){
+				LiveTypeInfo(roomsTypeNow,1,0,$("#search").val());
+				return false;
+			 }
         });
         $("#plus_ten").click(function(){
         	if($("#errorValue").html().substring(0,$("#errorValue").html().length-1) >= 100){
@@ -259,7 +260,6 @@
         <li class="search">
             <div class="search-wrapper card">
                 <input id="search"><i id="searchI" class="material-icons">search</i>
-                <div class="search-results"></div>
             </div>
         </li>
         <li id="li1" onclick="LiveTypeInfo('LOL',1,0)" class="bold"><a  class="waves-effect waves-teal" style="font-weight:bold">英雄联盟</a></li>
