@@ -156,11 +156,19 @@
 			dateList = eval(dateList);
 			$("#imgList").empty();
 			var allLiveList = new Array();
+			var dateListIsNullCount = 0;
 			for(var j=0;j<dateList.length;j++){
 				if("" != dateList[j] && null != dateList[j] && undefined != dateList[j]){
 					allLiveList = allLiveList.concat(dateList[j]);
 					date = dateList[j];
+				}else{
+					dateListIsNullCount++;
 				}
+			}
+			if(dateListIsNullCount == dateList.length){
+				$("#ulPage").empty();
+				$("#errorPage").attr("style","display:block");
+				return;
 			}
 			if(searchContent != undefined && searchContent != ""){
 				//根据房间名和主播搜索直播间
@@ -198,8 +206,8 @@
 		                +"<div class='card-content'>"
 		                    +"<div class='card-title activator grey-text text-darken-4'><h5 class='truncate' style='font-weight:bold' >"+allLiveList[i].title+"</h5></div>"
 		                	+"<div>"
-		                		+"<a class='heart' rel='like' style='bottom: 6%; left: 30%'></a>"
-		                		+"<span><i class='material-icons' style='vertical-align:middle;'>perm_identity</i>&nbsp;"+allLiveList[i].broadcaster+"</span>"
+		                		+"<a class='heart' rel='like' style='bottom: -4%;margin-left:-1%'></a>"
+		                		+"<span style='margin-left:7%'><i class='material-icons' style='vertical-align:middle;'>perm_identity</i>&nbsp;"+allLiveList[i].broadcaster+"</span>"
 		                		+"<span style='float: right;'><i class='material-icons' style='vertical-align: middle;'>visibility</i>&nbsp;"+(allLiveList[i].viewers/10000)+"万</span>"
 		            		+"</div>"
 		            	+"</div>"
