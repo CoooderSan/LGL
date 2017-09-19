@@ -22,7 +22,6 @@
 <link href="css/css.css" rel="stylesheet" type="text/css">
 <link href="css/icon.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">
 <link rel="stylesheet" href="css/style.css">
 <script>
     window.liveSettings = {
@@ -54,6 +53,7 @@
 			
 		})
 		$("body").keydown(function() {
+			 var event = window.event || arguments.callee.caller.arguments[0];
              if (event.keyCode == "13") {//keyCode=13是回车键
                  LiveTypeInfo(roomsTypeNow,1,0,$("#search").val());
              }
