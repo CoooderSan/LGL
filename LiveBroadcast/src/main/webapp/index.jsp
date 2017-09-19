@@ -290,8 +290,7 @@
     </div>
     <div style="position: absolute; left: 52%;">
         <a id="plus_ten" class="tooltipped btn-floating waves-effect waves-light red z-depth-5" style="width: 120px;height: 120px;padding: 30px;border-radius: 50%;top: -10%"; data-position="bottom"; data-delay="50"; data-tooltip="加载不出来，请点击加速~">
-            <span style="display:block;;">
-                <i class="large material-icons" style="vertical-align: middle;">fingerprint</i>
+            <span style="display:block;">
             </span>
         </a>
     </div>
