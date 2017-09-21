@@ -313,15 +313,24 @@
     <!-- Modal Structure -->
     <div id="modal1" class="modal bottom-sheet">
         <div class="modal-content">
-
             <div class="row">
                 <form class="col s12">
+                    <div class="row">
+                        <div class="switch" >
+                            <label >
+                                登录
+                                <input type="checkbox" id="type" onchange="switchType() " mode="signIn">
+                                <span class="lever"></span>
+                                注册
+                            </label>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="input-field col s6">
                             <input id="user_name" type="text" class="validate">
                             <label for="user_name">用户名</label>
                         </div>
-                        <div class="input-field col s6">
+                        <div class="input-field col s6 signUp" style="display: none">
                             <input id="email" type="email" class="validate">
                             <label for="email" data-error="wrong" data-success="right">邮箱</label>
                         </div>
@@ -333,14 +342,14 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="input-field col s12">
+                        <div class="input-field col s12 signUp" style="display: none">
                             <input id="confirm_password" type="password" class="validate">
                             <label for="confirm_password">确认密码</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col s12">
-                            <div class="input-field inline">
+                            <div class="input-field inline signUp" style="display: none">
                                 <input id="validated_code" type="email" class="validate">
                                 <label for="validated_code" data-error="wrong" data-success="right">验证码</label>
                             </div>
@@ -351,7 +360,7 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">同意</a>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">提交</a>
         </div>
     </div>
 
@@ -423,6 +432,17 @@
                 });
 
     });
+
+    function switchType(){
+        console.log($(".signUp"));
+        if($("#type").attr("mode") == "signIn"){
+            $("#type").attr("mode","signUp");
+            $(".signUp").css("display","inline");
+        }else{
+            $("#type").attr("mode","signIn");
+            $(".signUp").css("display","none");
+        }
+    }
 </script>
 
 <!--错误页面方法-->

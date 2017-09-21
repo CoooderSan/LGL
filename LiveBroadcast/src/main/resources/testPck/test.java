@@ -15,3 +15,4 @@ public class test {
 		redis.getResource();
 	}
 }
+
