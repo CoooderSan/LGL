@@ -277,34 +277,85 @@
         <!--</div>-->
     <!--</div>-->
 <!--</div>-->
-    <div class="htmleaf-container" >
+    <!--<div class="htmleaf-container" >-->
 
-        <div id="loadingContainer" >
-            <div class="loadingbar" >
-                <div class="marker_container">
-                    <div class="marker"></div>
-                    <div class="marker"></div>
-                    <div class="marker"></div>
-                    <div class="marker"></div>
-                </div>
-                <div class="filler_wrapper">
-                    <div class="filler">
-                        <span class="value">0%</span>
+        <!--<div id="loadingContainer" >-->
+            <!--<div class="loadingbar" >-->
+                <!--<div class="marker_container">-->
+                    <!--<div class="marker"></div>-->
+                    <!--<div class="marker"></div>-->
+                    <!--<div class="marker"></div>-->
+                    <!--<div class="marker"></div>-->
+                <!--</div>-->
+                <!--<div class="filler_wrapper">-->
+                    <!--<div class="filler">-->
+                        <!--<span class="value">0%</span>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash;<a id="plus_ten" class="btn-floating btn-large waves-effect waves-light red"></a>&ndash;&gt;-->
+        <!--<div style="position: absolute; left: 52%;">-->
+            <!--<a id="plus_ten" class="btn-floating waves-effect waves-light red z-depth-5" style="width: 120px;height: 120px;padding: 30px;border-radius: 50%;top: -10%">-->
+                <!--<span style="display:block;;">-->
+                    <!--<i class="large material-icons" style="vertical-align: middle;">fingerprint</i>-->
+                <!--</span>-->
+            <!--</a>-->
+        <!--</div>-->
+
+
+    <!--</div>-->
+
+
+    <!-- Modal Trigger -->
+    <button data-target="modal1" class="btn modal-trigger">Modal</button>
+
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal bottom-sheet">
+        <div class="modal-content">
+
+            <div class="row">
+                <form class="col s12">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input id="user_name" type="text" class="validate">
+                            <label for="user_name">用户名</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <input id="email" type="email" class="validate">
+                            <label for="email" data-error="wrong" data-success="right">邮箱</label>
+                        </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="password" type="password" class="validate">
+                            <label for="password">密码</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="confirm_password" type="password" class="validate">
+                            <label for="confirm_password">确认密码</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="input-field inline">
+                                <input id="validated_code" type="email" class="validate">
+                                <label for="validated_code" data-error="wrong" data-success="right">验证码</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </div>
-        <!--<a id="plus_ten" class="btn-floating btn-large waves-effect waves-light red"></a>-->
-        <div style="position: absolute; left: 52%;">
-            <a id="plus_ten" class="btn-floating waves-effect waves-light red z-depth-5" style="width: 120px;height: 120px;padding: 30px;border-radius: 50%;top: -10%">
-                <span style="display:block;;">
-                    <i class="large material-icons" style="vertical-align: middle;">fingerprint</i>
-                </span>
-            </a>
-        </div>
 
-
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">同意</a>
+        </div>
     </div>
+
+
 
 
 </main>
@@ -355,6 +406,12 @@
 </script>
 
 <script>
+
+    $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+    });
+
     $('#download-source, #download-sass').on('click', function () {
         $('#download').slideUp(
                 { duration: 500,
