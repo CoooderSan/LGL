@@ -180,9 +180,7 @@
   left:-14px;
   /*background-size:2900%;*/
 }
-.heart:hover, .heart:focus{
-  background-position: right;
-}
+
 
 @-webkit-keyframes heartBlast {
   0% {
