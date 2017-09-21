@@ -32,7 +32,6 @@
         autocollect: true
     };
 </script>
-</style>
 <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" >
 	var returnLiveInfo ;
@@ -201,7 +200,7 @@
 				htmlMess +="<div class='col s12 m4'>"
 		            +"<div class='card  hoverable'>"
 		                +"<div class='card-image'>"
-		                    +"<img src='"+allLiveList[i].img+"' class='responsive-img'>"
+		                    +"<img id='img"+i+"' src='image/initImage.png' class='responsive-img'>"
 		                    +"<a onclick=toLive('"+allLiveList[i].roomUrl+"') class='btn-floating btn-large halfway-fab waves-effect waves-light red' href='#'><i class='material-icons'>games</i></a>"
 		                +"</div>"
 		                +"<div class='card-content'>"
@@ -219,6 +218,13 @@
 		        }
 			}
 			$("#imgList").append(htmlMess);
+			setTimeout(function(){
+				for(var i = pageInit;i<pageLength;i++){
+					if(document.getElementById("img"+i).complete){
+        				$("#img"+i).attr("src",allLiveList[i].img);
+        			}
+				}
+        	},10)
 			if(type == 0){
 				pageNum = Math.ceil(allLiveList.length/pageCount);
 				$("#ulPage").empty();
