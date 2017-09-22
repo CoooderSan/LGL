@@ -38,6 +38,7 @@
 	var pageCount = 12;
 	var roomsTypeNow = "";
 	var pageNum = 0;
+	var useInfo ='<%=session.getAttribute("userName")%>';
 	$(function(){
 		$.ajax({
 			url:"liveInit/initC",
@@ -67,8 +68,10 @@
         {
             if($(this).attr("rel") === 'like')
             {
-                $(this).addClass("heartAnimation").attr("rel","unlike");
-
+            	//如果是登录状态，才能使用收藏功能
+            	if(useInfo != "null" && useInfo != null && useInfo != "" && useInfo != undefined){
+            		$(this).addClass("heartAnimation").attr("rel","unlike");
+            	}
             }
             else
             {
@@ -76,6 +79,7 @@
                 
             }
         });
+        $('.modal').modal();
 	})
 	$(document).click(function(e) { // 在页面任意位置点击而触发此事件
 		var clickedNode = event.target;
@@ -109,6 +113,15 @@
 	function toLive(roomUrl){
 		window.open(roomUrl);
 	}
+	function switchType(){
+        if($("#type").attr("mode") == "signIn"){
+            $("#type").attr("mode","signUp");
+            $(".signUp").css("display","inline");
+        }else{
+            $("#type").attr("mode","signIn");
+            $(".signUp").css("display","none");
+        }
+    }
 	function LiveTypeInfo(liveType,pageInfo,type,searchContent){
 		$("#errorPage").attr("style","display:none");
 		$("#errorValue").html("0%");
@@ -206,7 +219,7 @@
 		                +"<div class='card-content'>"
 		                    +"<div class='card-title activator grey-text text-darken-4'><h5 class='truncate' style='font-weight:bold' >"+allLiveList[i].title+"</h5></div>"
 		                	+"<div>"
-		                		+"<a class='heart' rel='like' style='bottom: -4%;margin-left:-1%'></a>"
+		                		+"<a data-target='modal1' class='heart modal-trigger' rel='like' style='bottom: -4%;margin-left:-1%'></a>"
 		                		+"<span style='margin-left:7%'><i class='material-icons' style='vertical-align:middle;'>perm_identity</i>&nbsp;"+allLiveList[i].broadcaster+"</span>"
 		                		+"<span style='float: right;'><i class='material-icons' style='vertical-align: middle;'>visibility</i>&nbsp;"+(allLiveList[i].viewers/10000)+"万</span>"
 		            		+"</div>"
@@ -300,6 +313,59 @@
                 <i class="large material-icons" style="vertical-align: middle;">fingerprint</i>
             </span>
         </a>
+    </div>
+</div>
+<!-- Modal Structure -->
+<div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content">
+        <div class="row">
+            <form class="col s12">
+                <div class="row">
+                    <div class="switch" >
+                        <label >
+                            登录
+                            <input type="checkbox" id="type" onchange="switchType() " mode="signIn">
+                            <span class="lever"></span>
+                            注册
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="user_name" type="text" class="validate">
+                        <label for="user_name">用户名</label>
+                    </div>
+                    <div class="input-field col s6 signUp" style="display: none">
+                        <input id="email" type="email" class="validate">
+                        <label for="email" data-error="wrong" data-success="right">邮箱</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="password" type="password" class="validate">
+                        <label for="password">密码</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12 signUp" style="display: none">
+                        <input id="confirm_password" type="password" class="validate">
+                        <label for="confirm_password">确认密码</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="input-field inline signUp" style="display: none">
+                            <input id="validated_code" type="email" class="validate">
+                            <label for="validated_code" data-error="wrong" data-success="right">验证码</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">提交</a>
     </div>
 </div>
 </main>
