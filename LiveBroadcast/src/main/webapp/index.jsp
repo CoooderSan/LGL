@@ -258,6 +258,44 @@
 			$("#errorPage").attr("style","display:block");
 		}
 	}
+
+//	登录 & 注册
+	function sub(){
+		console.log($("#type").attr("mode"));
+		if($("#type").attr("mode")=="signIn"){
+			$.ajax({
+				type : "post",
+				url : "user/signIn",
+				data : {
+					"name" : $("#user_name").val(),
+					"password" : $("#password").val(),
+				},
+				success : function(data){
+					if(data.retCode == "1"){
+						location.reload();
+					}else{
+						Materialize.toast('用户名密码不匹配！', 4000)
+					}
+				}
+			})
+		}
+		else{
+			$.ajax({
+				type : "post",
+				url : "user/register",
+				data : {
+					"name" : $("#user_name").val(),
+					"email" : $("#email").val(),
+					"password" : $("#password").val(),
+				},
+				success : function(data){
+					if(data.retCode == 1){
+						Materialize.toast('请前往邮箱激活账号！', 4000)
+					}
+				}
+			})
+		}
+	}
 </script>
 
 
@@ -352,20 +390,12 @@
                         <label for="confirm_password">确认密码</label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col s12">
-                        <div class="input-field inline signUp" style="display: none">
-                            <input id="validated_code" type="email" class="validate">
-                            <label for="validated_code" data-error="wrong" data-success="right">验证码</label>
-                        </div>
-                    </div>
-                </div>
             </form>
         </div>
 
     </div>
     <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">提交</a>
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="sub()">提交</a>
     </div>
 </div>
 </main>

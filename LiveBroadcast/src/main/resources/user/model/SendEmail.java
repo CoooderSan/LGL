@@ -5,14 +5,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 public class SendEmail {
     public static final String HOST = "smtp.163.com";
     public static final String PROTOCOL = "smtp";
     public static final int PORT = 25;
-    public static final String FROM = "xxxxx@xx.com";//发件人的email
-    public static final String PWD = "123456";//发件人密码
+    public static final String FROM = "LiveGamesList@163.com";//发件人的email
+    public static final String PWD = "CC546404101!!";//发件人密码
 
     /**
      * 获取session
