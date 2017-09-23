@@ -24,6 +24,7 @@ public class UserController {
     JedisUtil jedisUtil;
 
     @RequestMapping(value = "/register")
+    @ResponseBody
     public Map<String,String> register(HttpServletRequest request, User user) throws Exception{
         String mod = request.getParameter("mod");
         Map<String, String> map = new HashMap();

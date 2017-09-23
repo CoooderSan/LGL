@@ -1,7 +1,5 @@
 package com.user.model;
 
-import java.util.Date;
-
 public class User {
 //    private Long id;
     private String name; //用户名
@@ -9,7 +7,7 @@ public class User {
     private String email; //邮箱
     private int status; //激活状态
     private String validateCode; //激活码
-    private Date registerTime; //注册时间
+    private String registerTime; //注册时间
 
     public String getName() {
         return name;
@@ -51,11 +49,11 @@ public class User {
         this.validateCode = validateCode;
     }
 
-    public Date getRegisterTime() {
+    public String getRegisterTime() {
         return registerTime;
     }
 
-    public void setRegisterTime(Date registerTime) {
+    public void setRegisterTime(String registerTime) {
         this.registerTime = registerTime;
     }
 
@@ -65,9 +63,9 @@ public class User {
                 "name:'" + name + '\'' +
                 ", password:'" + password + '\'' +
                 ", email:'" + email + '\'' +
-                ", status:" + status +
+                ", status:'" + status +'\''+
                 ", validateCode:'" + validateCode + '\'' +
-                ", registerTime:" + registerTime +
+                ", registerTime:'" + registerTime +'\''+
                 '}';
     }
 }
