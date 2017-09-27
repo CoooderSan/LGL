@@ -34,7 +34,6 @@ public class RegisterValidateServiceImpl implements RegisterValidateService{
         user.setRegisterTime(sdf.format(new Date()));
 //        userMapper.saveUser(user);
 //        存入redis
-        jedisUtil.getResource();
         jedisUtil.setRedisStrValue(user.getName(),user.toString());
 //       拼邮件
         StringBuffer sb = new StringBuffer("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
@@ -56,7 +55,6 @@ public class RegisterValidateServiceImpl implements RegisterValidateService{
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //        User user = userMapper.findUser(email);
         User userObj = new User();
-        jedisUtil.getResource();
 //        查找出redis中的user对象
         String obj = jedisUtil.getRedisStrValue(user.getName());
         if(obj != null && !"".equals(obj)){
@@ -97,7 +95,6 @@ public class RegisterValidateServiceImpl implements RegisterValidateService{
     public Map<String, String> signIn(User user) {
         Map<String,String> map = new HashMap<String,String>();
         map.put("retCode","0");
-        jedisUtil.getResource();
 //        从redis中获取user
         String userObj = jedisUtil.getRedisStrValue(user.getName());
         if(userObj != null && !"".equals(userObj)){

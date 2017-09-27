@@ -80,6 +80,76 @@
             }
         });
         $('.modal').modal();
+
+//		屏蔽submit
+		function disableSubmit(){
+			$("#submit").attr("disabled",true);
+		}
+//		input输入校验
+		$(".validate").blur(function (){
+			var type = $(this).attr("id");
+			if( type == "user_name"){
+//				$("label[for=user_name]").attr("class","activate");
+				var uPattern = /^[a-zA-Z0-9_-]{4,16}$/;
+				if(uPattern.test($(this).val())){
+					$(this).addClass("valid");
+					$("label[for=user_name]").attr("data-success","right");
+				}else{
+					$(this).addClass("invalid");
+					$("label[for=user_name]").attr("data-error","wrong");
+				}
+			}else if(type == "email"){
+				var ePattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+				if(ePattern.test($(this).val())){
+					$(this).addClass("valid");
+					$("label[for=email]").attr("data-success","right");
+				}else{
+					$(this).addClass("invalid");
+					$("label[for=email]").attr("data-error","wrong");
+				}
+			} else if(type == "password"){
+				$("#confirm_password").val("");
+				var uPattern = /^[a-zA-Z0-9_-]{4,16}$/;
+				if(uPattern.test($(this).val())){
+					$(this).addClass("valid");
+					$("label[for=password]").attr("data-success","right");
+				}else{
+					$(this).addClass("invalid");
+					$("label[for=password]").attr("data-error","wrong");
+				}
+
+			} else if(type == "confirm_password"){
+				if($("#password").hasClass("invalid")){
+					$(this).addClass("invalid");
+					$("label[for=confirm_password]").attr("data-error","wrong");
+				}else{
+					if($(this).val() == $("#password").val()){
+						$(this).addClass("valid");
+						$("label[for=confirm_password]").attr("data-success","right");
+					}else{
+						$(this).addClass("invalid");
+						$("label[for=confirm_password]").attr("data-error","wrong");
+					}
+				}
+			}
+//			校验格式后判断提交按钮是否可用
+			var judge = 1;
+			var elements = $("#type").attr("mode") === "signIn" ? $("input[class*=signIn]") : $(".validate");
+			var arr = elements.get();
+
+			for(var i in arr){
+				var element = arr[i]
+
+				if($(element).hasClass("invalid") || !$(element).hasClass("valid")){
+					judge = 0;
+					break;
+				}
+			}
+
+			if(judge == 1){
+				$("#submit").attr("disabled",false);
+			}
+		})
 	})
 	$(document).click(function(e) { // 在页面任意位置点击而触发此事件
 		var clickedNode = event.target;
@@ -114,12 +184,15 @@
 		window.open(roomUrl);
 	}
 	function switchType(){
+		$(".validate").attr("value", "");
         if($("#type").attr("mode") == "signIn"){
             $("#type").attr("mode","signUp");
             $(".signUp").css("display","inline");
+			$("#submit").attr("diabled", true);
         }else{
             $("#type").attr("mode","signIn");
             $(".signUp").css("display","none");
+			$("#submit").attr("diabled", true);
         }
     }
 	function LiveTypeInfo(liveType,pageInfo,type,searchContent){
@@ -297,6 +370,7 @@
 			})
 		}
 	}
+
 </script>
 
 
@@ -371,17 +445,17 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <input id="user_name" type="text" class="validate">
+                        <input id="user_name" type="text" class="validate signIn">
                         <label for="user_name">用户名</label>
                     </div>
                     <div class="input-field col s6 signUp" style="display: none">
                         <input id="email" type="email" class="validate">
-                        <label for="email" data-error="wrong" data-success="right">邮箱</label>
+                        <label for="email">邮箱</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input id="password" type="password" class="validate">
+                        <input id="password" type="password" class="validate signIn">
                         <label for="password">密码</label>
                     </div>
                 </div>
@@ -396,7 +470,7 @@
 
     </div>
     <div class="modal-footer">
-        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="sub()">提交</a>
+        <a id="submit" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="sub()" disabled="true">提交</a>
     </div>
 </div>
 </main>
