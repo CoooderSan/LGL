@@ -26,7 +26,6 @@ public class RegisterValidateServiceImpl implements RegisterValidateService{
     @Autowired
     private JedisUtil jedisUtil;
 
-    @Override
     public void processRegister(User user) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //       将用户的邮箱通过MD5变为激活码
@@ -50,7 +49,6 @@ public class RegisterValidateServiceImpl implements RegisterValidateService{
         SendEmail.send(user.getEmail(), sb.toString());
     }
 
-    @Override
     public void processActivate(User user) throws Exception{
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //        User user = userMapper.findUser(email);
@@ -91,7 +89,6 @@ public class RegisterValidateServiceImpl implements RegisterValidateService{
         }
     }
 
-    @Override
     public Map<String, String> signIn(User user) {
         Map<String,String> map = new HashMap<String,String>();
         map.put("retCode","0");

@@ -38,16 +38,42 @@
 	var pageCount = 12;
 	var roomsTypeNow = "";
 	var pageNum = 0;
+	var userNameCollectInfo = new Array();
 	var useInfo ='<%=session.getAttribute("userName")%>';
 	$(function(){
+		if(isNotEmpty(useInfo)){
+			$("#li4").after("<li id='li5' onclick=\"LiveTypeInfo('myCollect',1,0)\" class='bold' style='margin-top: 40px'><a class=' waves-effect waves-teal ' style='font-weight:bold;color: #804d62;font-size: 16px'>我的关注</a></li>");
+		}else{
+			$("#li4").after("<li id='li5' onclick=\"LiveTypeInfo('myCollect',1,0)\" class='bold' style='margin-top: 40px'><a data-target='modal1' class='modal-trigger waves-effect waves-teal ' style='font-weight:bold;color: #804d62;font-size: 16px'>我的关注</a></li>");
+		}
 		$.ajax({
 			url:"liveInit/initC",
 			success:function(date){
 				var date = eval(date);
 				returnLiveInfo = date;
+				if(isNotEmpty(returnLiveInfo.userNameCollectInfo)){
+					userNameCollectInfo = eval(returnLiveInfo.userNameCollectInfo);
+				}
 				LiveTypeInfo("LOL",1,0);
+			},
+			error:function(){
+				$("#imgList").empty();
+				$("#ulPage").empty();
+				$("#errorPage").attr("style","display:block");
 			}
 		})
+		Array.prototype.dyIndexOF = function(val) {
+			for (var i = 0; i < this.length; i++) {
+				if (this[i] == val) return i;
+			}
+			return -1;
+		};
+		Array.prototype.remove = function(val) {
+			var index = this.dyIndexOF(val);
+			if (index > -1) {
+				this.splice(index, 1);
+			}
+		};
 		$("#searchI").click(function(){
 			LiveTypeInfo(roomsTypeNow,1,0,$("#search").val());
 			
@@ -69,13 +95,19 @@
             if($(this).attr("rel") === 'like')
             {
             	//如果是登录状态，才能使用收藏功能
-            	if(useInfo != "null" && useInfo != null && useInfo != "" && useInfo != undefined){
-            		$(this).addClass("heartAnimation").attr("rel","unlike");
+            	if(isNotEmpty(useInfo)){
+            		toCollect("1",$(this).next().text().substring(14),this);
             	}
             }
             else
             {
-                $(this).removeClass("heartAnimation").attr("rel","like");
+            	//如果是登录状态，才能使用收藏功能
+            	if(isNotEmpty(useInfo)){
+					if(confirm("是否需要取消关注")){
+						toCollect("0",$(this).next().text().substring(14),this);
+					}
+            	}
+                
                 
             }
         });
@@ -136,8 +168,7 @@
 			var judge = 1;
 			var elements = $("#type").attr("mode") === "signIn" ? $("input[class*=signIn]") : $(".validate");
 			var arr = elements.get();
-
-			for(var i in arr){
+			for(var i=0;i<arr.length;i++){
 				var element = arr[i]
 
 				if($(element).hasClass("invalid") || !$(element).hasClass("valid")){
@@ -145,7 +176,6 @@
 					break;
 				}
 			}
-
 			if(judge == 1){
 				$("#submit").attr("disabled",false);
 			}
@@ -184,32 +214,35 @@
 		window.open(roomUrl);
 	}
 	function switchType(){
-		$(".validate").attr("value", "");
         if($("#type").attr("mode") == "signIn"){
             $("#type").attr("mode","signUp");
             $(".signUp").css("display","inline");
-			$("#submit").attr("diabled", true);
         }else{
             $("#type").attr("mode","signIn");
             $(".signUp").css("display","none");
-			$("#submit").attr("diabled", true);
         }
     }
 	function LiveTypeInfo(liveType,pageInfo,type,searchContent){
+		if(!isNotEmpty(useInfo) && liveType == "myCollect"){
+			return;
+		}
 		$("#errorPage").attr("style","display:none");
 		$("#errorValue").html("0%");
 		$("#errorValue").parent().attr("style","width:0%");
 		roomsTypeNow = liveType;
 		var dateList;
 		var date;
+		var This = this;
 		$(window).scrollTop(0);
         $(window).scrollLeft(0);
+		var allLiveList = new Array();
 		switch (liveType) {
 			case "LOL":
 			$("#li1").attr("class","bold active");
 			$("#li2").attr("class","bold");
 			$("#li3").attr("class","bold");
 			$("#li4").attr("class","bold");
+			$("#li5").attr("class","bold");
 			$("#pageTitleName").html("英雄联盟");
 			dateList = returnLiveInfo.LOLInfo;
 				break;
@@ -219,6 +252,7 @@
 			$("#li2").attr("class","bold");
 			$("#li3").attr("class","bold active");
 			$("#li4").attr("class","bold");
+			$("#li5").attr("class","bold");
 			$("#pageTitleName").html("DOTA2");
 				break;
 			case "hearthstone":
@@ -227,6 +261,7 @@
 			$("#li2").attr("class","bold active");
 			$("#li3").attr("class","bold");
 			$("#li4").attr("class","bold");
+			$("#li5").attr("class","bold");
 			$("#pageTitleName").html("炉石传说");
 				break;
 			case "kingG":
@@ -235,26 +270,96 @@
 			$("#li2").attr("class","bold");
 			$("#li3").attr("class","bold");
 			$("#li4").attr("class","bold active");
+			$("#li5").attr("class","bold");
 			$("#pageTitleName").html("王者荣耀");
 				break;
-		}
-		if("" != dateList && null != dateList && undefined != dateList){
-			dateList = eval(dateList);
-			$("#imgList").empty();
-			var allLiveList = new Array();
-			var dateListIsNullCount = 0;
-			for(var j=0;j<dateList.length;j++){
-				if("" != dateList[j] && null != dateList[j] && undefined != dateList[j]){
-					allLiveList = allLiveList.concat(dateList[j]);
-					date = dateList[j];
-				}else{
-					dateListIsNullCount++;
-				}
+			case "myCollect":
+			$("#li1").attr("class","bold");
+			$("#li2").attr("class","bold");
+			$("#li3").attr("class","bold");
+			$("#li4").attr("class","bold");
+			$("#li5").attr("class","bold active");
+			$("#pageTitleName").html("我的关注");
+			var arrayCollectList = new Array();
+			var arrayCollectListInfo = new Array();
+			if(isNotEmpty(returnLiveInfo.LOLInfo)){
+				var LOLInfo = eval(returnLiveInfo.LOLInfo);
+				arrayCollectList = arrayCollectList.concat(LOLInfo);
 			}
-			if(dateListIsNullCount == dateList.length){
+			if(isNotEmpty(returnLiveInfo.DOTAInfo)){
+				var DOTAInfo = eval(returnLiveInfo.DOTAInfo);
+				arrayCollectList = arrayCollectList.concat(DOTAInfo);
+			}
+			if(isNotEmpty(returnLiveInfo.hearthstoneInfo)){
+				var hearthstoneInfo = eval(returnLiveInfo.hearthstoneInfo);
+				arrayCollectList = arrayCollectList.concat(hearthstoneInfo);
+			}
+			if(isNotEmpty(returnLiveInfo.kingGInfo)){
+				var kingGInfo = eval(returnLiveInfo.kingGInfo);
+				arrayCollectList = arrayCollectList.concat(kingGInfo);
+			}
+			if(isNotEmpty(arrayCollectList)){
+				var arrayCollectCount = 0;
+				for(var k=0;k<arrayCollectList.length;k++){
+					if(isNotEmpty(arrayCollectList[k])){
+						arrayCollectListInfo = arrayCollectListInfo.concat(arrayCollectList[k]);
+					}else{
+						arrayCollectCount++;
+					}
+				}
+				if(arrayCollectCount == arrayCollectList.length){
+					$("#ulPage").empty();
+					$("#errorPage").attr("style","display:block");
+					return;
+				}
+				arrayCollectListInfo = arrayCollectListInfo.filter(function(a) {
+					return This.isExistsCollectInfo(a.broadcaster,userNameCollectInfo);
+				});
+				if(isNotEmpty(arrayCollectListInfo)){
+					allLiveList = arrayCollectListInfo;
+					dateList = arrayCollectList;
+				}else{
+					$("#imgList").empty();
+					$("#ulPage").empty();
+					$("#errorPage").attr("style","display:block");
+					return;
+				}
+
+			}else{
+				$("#imgList").empty();
 				$("#ulPage").empty();
 				$("#errorPage").attr("style","display:block");
 				return;
+			}
+				break;
+		};
+		this.isExistsCollectInfo = function (arrayBroadcaster,userNameCollectInfo){
+			var collectFlag = false;
+			for(var i=0;i<userNameCollectInfo.length;i++){
+				if(arrayBroadcaster == userNameCollectInfo[i]){
+					collectFlag = true;
+				}
+			}
+			return collectFlag;
+		};
+		if(isNotEmpty(dateList)){
+			dateList = eval(dateList);
+			$("#imgList").empty();
+			if(!isNotEmpty(allLiveList)){
+				var dateListIsNullCount = 0;
+				for(var j=0;j<dateList.length;j++){
+					if(isNotEmpty(dateList[j])){
+						allLiveList = allLiveList.concat(dateList[j]);
+						date = dateList[j];
+					}else{
+						dateListIsNullCount++;
+					}
+				}
+				if(dateListIsNullCount == dateList.length){
+					$("#ulPage").empty();
+					$("#errorPage").attr("style","display:block");
+					return;
+				}
 			}
 			if(searchContent != undefined && searchContent != ""){
 				//根据房间名和主播搜索直播间
@@ -290,15 +395,33 @@
 		                    +"<a onclick=toLive('"+allLiveList[i].roomUrl+"') class='btn-floating btn-large halfway-fab waves-effect waves-light red' href='#'><i class='material-icons'>games</i></a>"
 		                +"</div>"
 		                +"<div class='card-content'>"
-		                    +"<div class='card-title activator grey-text text-darken-4'><h5 class='truncate' style='font-weight:bold' >"+allLiveList[i].title+"</h5></div>"
-		                	+"<div>"
-		                		+"<a data-target='modal1' class='heart modal-trigger' rel='like' style='bottom: -4%;margin-left:-1%'></a>"
-		                		+"<span style='margin-left:7%'><i class='material-icons' style='vertical-align:middle;'>perm_identity</i>&nbsp;"+allLiveList[i].broadcaster+"</span>"
+		                +"<div class='card-title activator grey-text text-darken-4'><h5 class='truncate' style='font-weight:bold' >"+allLiveList[i].title+"</h5></div>"
+		                	+"<div>";
+		       if(isNotEmpty(useInfo)){
+				   if(isNotEmpty(userNameCollectInfo)){
+					   var userCollFlag = false;
+					   for(var j = 0;j<userNameCollectInfo.length;j++){
+						   if(userNameCollectInfo[j] == allLiveList[i].broadcaster){
+							   userCollFlag = true;
+						   }
+					   }
+					   if(userCollFlag){
+						   htmlMess +="<a class='heart heartAnimation' rel='unlike' style='bottom: -4%;margin-left:-1%'></a>";
+					   }else{
+						   htmlMess +="<a class='heart' rel='like' style='bottom: -4%;margin-left:-1%'></a>";
+					   }
+				   }else{
+					   htmlMess +="<a class='heart' rel='like' style='bottom: -4%;margin-left:-1%'></a>";
+				   }
+			   }
+		       else  htmlMess +="<a data-target='modal1' class='heart modal-trigger' rel='like' style='bottom: -4%;margin-left:-1%'></a>";
+		                		
+		       htmlMess+="<span style='margin-left:7%'><i class='material-icons' style='vertical-align:middle;'>perm_identity</i>&nbsp;"+allLiveList[i].broadcaster+"</span>"
 		                		+"<span style='float: right;'><i class='material-icons' style='vertical-align: middle;'>visibility</i>&nbsp;"+(allLiveList[i].viewers/10000)+"万</span>"
 		            		+"</div>"
 		            	+"</div>"
 		            +"</div>"
-		        +"</div>"
+		        +"</div>";
 		        if((i-2)%3 == 0){
 		        	htmlMess +="</div>";
 		        }
@@ -306,9 +429,7 @@
 			$("#imgList").append(htmlMess);
 			setTimeout(function(){
 				for(var i = pageInit;i<pageLength;i++){
-					if(document.getElementById("img"+i).complete){
         				$("#img"+i).attr("src",allLiveList[i].img);
-        			}
 				}
         	},10)
 			if(type == 0){
@@ -370,11 +491,44 @@
 			})
 		}
 	}
-
+	//收藏方法
+	function toCollect(updateFlag,collectInfo,thisObj){
+		$.ajax({
+			url:"user/collect",
+			type : "post",
+			data : {
+				"updateFlag" : updateFlag,
+				"collectInfo" : collectInfo
+			},
+			success:function(date){
+				if(updateFlag == "0" && date.result == "1"){
+					$(thisObj).removeClass("heartAnimation").attr("rel","like");
+					userNameCollectInfo.remove(collectInfo);
+					Materialize.toast('取消关注成功', 4000);
+				}else if(updateFlag == "1" && date.result == "1"){
+					$(thisObj).addClass("heartAnimation").attr("rel","unlike");
+					userNameCollectInfo.unshift(collectInfo)
+					Materialize.toast('已关注', 4000);
+				}else if(updateFlag == "0" && date.result == "0"){
+					Materialize.toast('取消关注失败', 4000);
+				}else if(updateFlag == "1" && date.result == "0"){
+					Materialize.toast('关注失败', 4000);
+				}
+			}
+		})
+	}
+	//判空方法
+	function isNotEmpty(val){
+		if(val != null && val != "" && val != undefined && val != "null"){
+			return true;
+		}else{
+			return false;
+		}
+	}
 </script>
 
 
-<body id="bodyId" oncontextmenu="return false" ondragstart="return false" onselectstart="return false" onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="return false" onmouseup="document.selection.empty()">
+<body id="bodyId" oncontextmenu="return false" ondragstart="return false" onselectstart="return false" onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="return false">
 <header>
     <!--title-->
     <nav class="top-nav">
