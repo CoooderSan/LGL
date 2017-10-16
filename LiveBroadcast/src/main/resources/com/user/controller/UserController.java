@@ -1,17 +1,17 @@
 package com.user.controller;
 
+import com.user.model.User;
+import com.user.service.CollectService;
+import com.user.service.RegisterValidateService;
+import com.util.JedisUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.user.model.User;
-import com.user.service.CollectService;
-import com.user.service.RegisterValidateService;
-import com.util.JedisUtil;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,13 +35,16 @@ public class UserController {
     JedisUtil jedisUtil;
 
     @RequestMapping(value = "/register")
-    public Map<String,String> register(HttpServletRequest request, User user) throws Exception{
+	@ResponseBody
+    public Map<String, String> register(HttpServletRequest request, User user, HttpServletResponse response) throws Exception{
+		Map<String, String> map = new HashMap<>();
+		String contextPath = request.getContextPath();
         String mod = request.getParameter("mod");
-        Map<String, String> map = new HashMap();
+
         if("signUp".equals(mod)){
 //            注册
             registerValidateService.processRegister(user);
-            map.put("retCode","1");
+			map.put("retCode","1");
         }else if("activate".equals(mod)){
 //            激活
             String email = request.getParameter("email");
@@ -49,9 +52,12 @@ public class UserController {
 
             try{
                 registerValidateService.processActivate(user);
-                map.put("retCode","1");
+				map.put("retCode","1");
+				response.sendRedirect(contextPath + "/index");
             }catch (Exception e){
-                map.put("retCode","0");
+				logger.debug(e);
+				map.put("retCode","0");
+				response.sendRedirect(contextPath + "error");
             }
         }
         return map;
@@ -116,4 +122,9 @@ public class UserController {
     }
 
 
+	@RequestMapping(value="signOut")
+	@ResponseBody
+	public void signOut(HttpSession session){
+		session.setAttribute("userName", null);
+	}
 }

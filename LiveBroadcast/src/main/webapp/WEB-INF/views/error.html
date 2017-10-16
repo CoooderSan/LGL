@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh"><head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>LGL</title>
+    <!-- Favicons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="apple-touch-icon-precomposed" href="image/LGLTitleS.png">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="image/LGLTitleS.png">
+    <link rel="icon" href="../../image/LGLTitleS.png" sizes="32x32">
+    <!--  Android 5 Chrome Color-->
+    <meta name="theme-color" content="#EE6E73">
+    <!-- CSS-->
+    <link href="../../css/prism.css" rel="stylesheet">
+    <link href="../../css/materialize.min.css" rel="stylesheet" type="text/css">
+    <link href="../../css/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="../../css/css.css" rel="stylesheet" type="text/css">
+    <link href="../../css/icon.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/htmleaf-demo.css">
+    <link rel="stylesheet" href="../../css/style.css">
+
+    <script src="../../js/live.js"></script><style type="text/css">.txlive {display: none;}
+</style>
+<body>
+<header>
+    <!--title-->
+    <nav class="top-nav">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a class="page-title">池大爷说你错了！</a>
+            </div>
+        </div>
+    </nav>
+
+    <!--左侧导航栏-->
+    <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle hide-on-large-only"><i class="material-icons">menu</i></a></div>
+    <ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(0%);">
+        <li class="logo"><a id="logo-container"  class="brand-logo">
+            <object id="front-page-logo" type="image/svg+xml" data="../../image/lgl.svg">Your browser does not support SVG</object></a></li>
+        <li class="search">
+            <div class="search-wrapper card">
+                <input id="search" placeholder="池大爷"><i id="searchI" class="material-icons">search</i>
+            </div>
+        </li>
+        <li id="li1" onclick="LiveTypeInfo('LOL',1,0)" class="bold"><a  class="waves-effect waves-teal" style="font-weight:bold">和你说</a></li>
+        <li id="li2" onclick="LiveTypeInfo('hearthstone',1,0)" class="bold"><a  class="waves-effect waves-teal" style="font-weight:bold">有可能</a></li>
+        <li id="li3" onclick="LiveTypeInfo('Dota',1,0)" class="bold"><a class=" waves-effect waves-teal" style="font-weight:bold">有地方</a></li>
+        <li id="li4" onclick="LiveTypeInfo('kingG',1,0)" class="bold"><a class=" waves-effect waves-teal " style="font-weight:bold">出错了</a></li>
+        <li id="li5" onclick="LiveTypeInfo('kingG',1,0)" class="bold"><a class=" waves-effect waves-teal " style="font-weight:bold">要么点着玩</a></li>
+        <li id="li6" onclick="LiveTypeInfo('kingG',1,0)" class="bold"><a class=" waves-effect waves-teal " style="font-weight:bold" onclick="backHome()">要么返回主界面</a></li>
+    </ul>
+
+
+
+</header>
+
+
+<main>
+
+    <div id="errorPage">
+        <div id="loadingContainer" >
+            <div class="loadingbar" >
+                <div class="marker_container">
+                    <div class="marker"></div>
+                    <div class="marker"></div>
+                    <div class="marker"></div>
+                    <div class="marker"></div>
+                </div>
+                <div class="filler_wrapper">
+                    <div class="filler">
+                        <span id="errorValue" class="value">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="position: absolute; left: 52%;">
+            <a id="plus_ten" class="tooltipped btn-floating waves-effect waves-light red z-depth-5" style="width: 120px;height: 120px;padding: 30px;border-radius: 50%;top: -10%"; data-position="bottom"; data-delay="50"; data-tooltip="加载不出来，请点击加速~">
+            </a>
+        </div>
+    </div>
+
+
+</main>
+
+
+
+
+<!--  Scripts-->
+<script src="../../js/jquery-3.js"></script>
+<script>if (!window.jQuery) { document.write('<script src="js/jquery-3.2.1.min.js"><\/script>'); }
+</script>
+<script src="../../js/jquery.js"></script>
+<script src="../../js/prism.js"></script>
+<script src="../../js/lunr.js"></script>
+<script src="../../js/search.js"></script>
+<script src="../../js/materialize.js"></script>
+<script src="../../js/init.js"></script>
+
+<!--错误页面js-->
+<script type="text/javascript" src="../../js/blower-loading.js"></script>
+
+
+
+<script>
+
+    $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+    });
+
+    $('#download-source, #download-sass').on('click', function () {
+        $('#download').slideUp(
+                { duration: 500,
+                    easing: "easeOutQuart",
+                    queue: false,
+                    complete: function()
+                    { $('#download-thanks').slideDown({ duration: 300,
+                        easing: "easeOutQuart"}); }
+                });
+
+    });
+
+    function switchType(){
+        console.log($(".signUp"));
+        if($("#type").attr("mode") == "signIn"){
+            $("#type").attr("mode","signUp");
+            $(".signUp").css("display","inline");
+        }else{
+            $("#type").attr("mode","signIn");
+            $(".signUp").css("display","none");
+        }
+    }
+
+    function backHome(){
+        //获取当前网址，如： http://localhost:8083/uimcardprj/share/meun.jsp
+        var curWwwPath=window.document.location.href;
+        //获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+        var pathName=window.document.location.pathname;
+        var pos=curWwwPath.indexOf(pathName);
+        //获取主机地址，如： http://localhost:8083
+        var localhostPaht=curWwwPath.substring(0,pos);
+        //获取带"/"的项目名，如：/uimcardprj
+        var projectName=pathName.substring(0,pathName.substr(1).indexOf('/')+1);
+        window.location.href = localhostPaht+projectName;
+    }
+</script>
+
+<!--错误页面方法-->
+<script type="text/javascript">
+    var blower = null;
+    $(document).ready(function () {
+        blower = new LoadingBlower("#loadingContainer");
+        $("#plus_ten").on("click", function () {
+            blower.addProgress(0.1);
+            console.log('btn clicked');
+        });
+    });
+</script>

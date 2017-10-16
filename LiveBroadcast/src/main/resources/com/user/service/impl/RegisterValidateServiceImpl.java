@@ -2,6 +2,7 @@ package com.user.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import net.sf.json.JSONObject;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 //import com.user.mapper.UserMapper;
@@ -20,8 +21,10 @@ import java.util.Map;
 @Service("registerValidateService")
 public class RegisterValidateServiceImpl implements RegisterValidateService{
 
-    /*@Autowired
-    private UserMapper userMapper;*/
+    /**
+     * logger 日志记录器
+     */
+    private static final Logger logger = Logger.getLogger(JedisUtil.class);
 
     @Autowired
     private JedisUtil jedisUtil;
@@ -36,7 +39,7 @@ public class RegisterValidateServiceImpl implements RegisterValidateService{
         jedisUtil.setRedisStrValue(user.getName(),user.toString());
 //       拼邮件
         StringBuffer sb = new StringBuffer("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
-//        sb.append("<a href=\"http://www.cooodersan.xin/user/register?mod=activate&email=");
+
         sb.append("<a href=\"http://localhost:8080/LGL/user/register?mod=activate&email=");
         sb.append(user.getEmail());
         sb.append("&validateCode=");
@@ -76,15 +79,19 @@ public class RegisterValidateServiceImpl implements RegisterValidateService{
                         jedisUtil.setRedisStrValue(userObj.getName(), userObj.toString());
 //                        userMapper.updateUser(user);
                     }else{
+                        logger.debug("激活码不正确！");
                         throw new Exception("激活码不正确！");
                     }
                 }else{
+                    logger.debug("激活码已过期！");
                     throw new Exception("激活码已过期！");
                 }
             }else{
-                throw new Exception("邮箱已激活，请登录");
+                logger.debug("邮箱已激活，请登录！");
+                throw new Exception("邮箱已激活，请登录!");
             }
         }else{
+            logger.debug("该邮箱未注册！");
             throw new Exception("该邮箱未注册！");
         }
     }

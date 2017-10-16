@@ -1,4 +1,4 @@
-<%@ page language="java" import="com.util.*" pageEncoding="UTF-8" %>
+<%@ page language="java" import="com.user.model.User" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <html lang="zh"><head>
@@ -42,7 +42,8 @@
 	var useInfo ='<%=session.getAttribute("userName")%>';
 	$(function(){
 		if(isNotEmpty(useInfo)){
-			$("#li4").after("<li id='li5' onclick=\"LiveTypeInfo('myCollect',1,0)\" class='bold' style='margin-top: 40px'><a class=' waves-effect waves-teal ' style='font-weight:bold;color: #804d62;font-size: 16px'>我的关注</a></li>");
+			$("#li4").after("<li id='li5' onclick=\"LiveTypeInfo('myCollect',1,0)\" class='bold' style='margin-top: 40px'><a class=' waves-effect waves-teal ' style='font-weight:bold;color: #804d62;font-size: 16px' onclick='Materialize.showStaggeredList(\"#staggered-test\")'>我的关注</a></li>" +
+					"<li id='staggered-test' onclick=\"clearSession()\" class='bold'><a class=' waves-effect waves-teal ' style='font-weight:bold;color: #804d62;font-size: 16px''>跑路</a></li>");
 		}else{
 			$("#li4").after("<li id='li5' onclick=\"LiveTypeInfo('myCollect',1,0)\" class='bold' style='margin-top: 40px'><a data-target='modal1' class='modal-trigger waves-effect waves-teal ' style='font-weight:bold;color: #804d62;font-size: 16px'>我的关注</a></li>");
 		}
@@ -274,6 +275,7 @@
 			$("#pageTitleName").html("王者荣耀");
 				break;
 			case "myCollect":
+
 			$("#li1").attr("class","bold");
 			$("#li2").attr("class","bold");
 			$("#li3").attr("class","bold");
@@ -468,14 +470,15 @@
 					if(data.retCode == "1"){
 						location.reload();
 					}else{
-						Materialize.toast('用户名密码不匹配！', 4000)
+						$("#cue").html("用户名密码不匹配！")
+						$("#modalAlert").modal("open");
 					}
 				}
 			})
 		}
 		else{
 			$.ajax({
-				type : "post",
+				type : "get",
 				url : "user/register",
 				data : {
 					"name" : $("#user_name").val(),
@@ -484,8 +487,10 @@
 					"mod" : "signUp"
 				},
 				success : function(data){
-					if(data.retCode == 1){
-						Materialize.toast('请前往邮箱激活账号！', 4000)
+					alert(data)
+					if(data.retCode == "1"){
+						$("#cue").html("注册成功，前往邮箱激活！")
+						$("#modalAlert").modal("open");
 					}
 				}
 			})
@@ -524,6 +529,17 @@
 		}else{
 			return false;
 		}
+	}
+
+//	清除session
+	function clearSession(){
+		$.ajax({
+			url: "user/signOut",
+			type: "post",
+			success: function () {
+				window.location.reload();
+			}
+		})
 	}
 </script>
 
@@ -627,6 +643,13 @@
         <a id="submit" href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="sub()" disabled="true">提交</a>
     </div>
 </div>
+
+<%--注册，登录，激活提示模态--%>
+	<div id="modalAlert" class="modal">
+		<div class="modal-content">
+			<h4>门口池大爷拒绝和你聊天，并抛出一个异常</h4>
+			<h5 id="cue">一堆文本</h5>
+		</div>
 </main>
 <footer>
         <ul id = "ulPage" class="pagination" style="text-align: center"></ul>
