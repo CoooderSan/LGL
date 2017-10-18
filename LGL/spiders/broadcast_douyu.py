@@ -102,14 +102,3 @@ def get_room_info(game):
 #     scheduler.add_job(put_data_in_redis, 'cron', minute='*/30')
 #
 #     scheduler.start()
-
-
-
-
-
-
-
-
-
-
-

@@ -68,11 +68,10 @@ def get_room_info(game):
         # 获取观看人数
         viewers = li.find('span', class_='video-number').string
         # 如果观看人数过万则转化为纯数字格式
-        if viewers[-2] == "万":
-            viewers = viewers[:-2]
+        if viewers[-1] == "万":
+            viewers = viewers[:-1]
             viewers = int(float(viewers) * 10000)
         else:
-            viewers = viewers[:-1]
             viewers = int(viewers)
         room_info['viewers'] = viewers
         # 获取直播图路径
@@ -84,7 +83,7 @@ def get_room_info(game):
         if viewers >= 10000:
             room_list.append(room_info)
 
-    # print(room_list)
+    print(room_list)
     return room_list
 
 
@@ -98,13 +97,3 @@ def get_room_info(game):
 #     scheduler.add_job(put_data_in_redis, 'cron', minute='*/30')
 #
 #     scheduler.start()
-
-
-
-
-
-
-
-
-
-
