@@ -129,7 +129,7 @@
 				if(uPattern.test($(this).val())){
 					$(this).addClass("valid");
 					$("label[for=user_name]").attr("data-success","right");
-				}else{
+				}else if($(this).val() != ""){
 					$(this).addClass("invalid");
 					$("label[for=user_name]").attr("data-error","wrong");
 				}
@@ -138,7 +138,7 @@
 				if(ePattern.test($(this).val())){
 					$(this).addClass("valid");
 					$("label[for=email]").attr("data-success","right");
-				}else{
+				}else if($(this).val() != ""){
 					$(this).addClass("invalid");
 					$("label[for=email]").attr("data-error","wrong");
 				}
@@ -148,20 +148,20 @@
 				if(uPattern.test($(this).val())){
 					$(this).addClass("valid");
 					$("label[for=password]").attr("data-success","right");
-				}else{
+				}else if($(this).val() != ""){
 					$(this).addClass("invalid");
 					$("label[for=password]").attr("data-error","wrong");
 				}
 
 			} else if(type == "confirm_password"){
-				if($("#password").hasClass("invalid")){
+				if($("#password").hasClass("invalid") && $(this).val() != ""){
 					$(this).addClass("invalid");
 					$("label[for=confirm_password]").attr("data-error","wrong");
 				}else{
 					if($(this).val() == $("#password").val()){
 						$(this).addClass("valid");
 						$("label[for=confirm_password]").attr("data-success","right");
-					}else{
+					}else if($(this).val() != ""){
 						$(this).addClass("invalid");
 						$("label[for=confirm_password]").attr("data-error","wrong");
 					}
@@ -181,6 +181,8 @@
 			}
 			if(judge == 1){
 				$("#submit").attr("disabled",false);
+			}else{
+				$("#submit").attr("disabled",true);
 			}
 		})
 	})
@@ -459,7 +461,6 @@
 
 //	登录 & 注册
 	function sub(){
-		console.log($("#type").attr("mode"));
 		$("#ZGIndex").css('display','block');
 		if($("#type").attr("mode")=="signIn"){
 			$.ajax({
