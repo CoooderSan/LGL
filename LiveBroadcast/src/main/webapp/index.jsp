@@ -499,10 +499,7 @@
 					"mod" : "signUp"
 				},
 				success : function(data){
-<<<<<<< HEAD
-=======
 					$("#ZGIndex").css('display','none');
->>>>>>> 54c17db9982abb10552572578b78b5045331024f
 					if(data.retCode == "1"){
 						$("#cue").html("注册成功，前往邮箱激活！")
 						$("#modalAlert").modal("open");
