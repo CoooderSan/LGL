@@ -487,7 +487,6 @@
 					"mod" : "signUp"
 				},
 				success : function(data){
-					alert(data)
 					if(data.retCode == "1"){
 						$("#cue").html("注册成功，前往邮箱激活！")
 						$("#modalAlert").modal("open");

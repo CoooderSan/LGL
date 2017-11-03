@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service("registerValidateService")
-public class RegisterValidateServiceImpl implements RegisterValidateService{
+public class RegisterValidateServiceImpl implements RegisterValidateService {
 
     /**
      * logger 日志记录器
@@ -36,7 +36,7 @@ public class RegisterValidateServiceImpl implements RegisterValidateService{
         user.setRegisterTime(sdf.format(new Date()));
 //        userMapper.saveUser(user);
 //        存入redis
-        jedisUtil.setRedisStrValue(user.getName(),user.toString());
+        jedisUtil.setRedisStrValue(user.getName(), user.toString());
 //       拼邮件
         StringBuffer sb = new StringBuffer("点击下面链接激活账号，48小时生效，否则重新注册账号，链接只能使用一次，请尽快激活！</br>");
 
@@ -52,61 +52,66 @@ public class RegisterValidateServiceImpl implements RegisterValidateService{
         SendEmail.send(user.getEmail(), sb.toString());
     }
 
-    public void processActivate(User user) throws Exception{
+    public void processActivate(User user) throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 //        User user = userMapper.findUser(email);
         User userObj = new User();
 //        查找出redis中的user对象
         String obj = jedisUtil.getRedisStrValue(user.getName());
-        if(obj != null && !"".equals(obj)){
+        if (obj != null && !"".equals(obj)) {
             JSONObject object = JSONObject.fromObject(obj);
-            userObj = (User)JSONObject.toBean(object, User.class);
+            userObj = (User) JSONObject.toBean(object, User.class);
         }
 
-        if(userObj != null){
-            if(userObj.getStatus() == 0){
+        if (userObj != null) {
+            if (userObj.getStatus() == 0) {
                 Date current = new Date();
 //                计算出最后激活时间
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(sdf.parse(userObj.getRegisterTime()));
                 calendar.add(Calendar.DATE, 2);
 //                验证码是否过期
-                if(current.before(calendar.getTime())){
-                    if(userObj.getValidateCode().equals(user.getValidateCode())){
+                if (current.before(calendar.getTime())) {
+                    if (userObj.getValidateCode().equals(user.getValidateCode())) {
 //                        状态变为激活
                         userObj.setStatus(1);
                         userObj.setEmail(user.getEmail());
                         jedisUtil.setRedisStrValue(userObj.getName(), userObj.toString());
 //                        userMapper.updateUser(user);
-                    }else{
+                    } else {
                         logger.debug("激活码不正确！");
                         throw new Exception("激活码不正确！");
                     }
-                }else{
+                } else {
                     logger.debug("激活码已过期！");
                     throw new Exception("激活码已过期！");
                 }
-            }else{
+            } else {
                 logger.debug("邮箱已激活，请登录！");
                 throw new Exception("邮箱已激活，请登录!");
             }
-        }else{
+        } else {
             logger.debug("该邮箱未注册！");
             throw new Exception("该邮箱未注册！");
         }
     }
 
     public Map<String, String> signIn(User user) {
-        Map<String,String> map = new HashMap<String,String>();
-        map.put("retCode","0");
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("retCode", "0");
 //        从redis中获取user
         String userObj = jedisUtil.getRedisStrValue(user.getName());
-        if(userObj != null && !"".equals(userObj)){
-            Map<String,String> userMap = (Map) JSON.parseObject(userObj);
-//            如果密码一致返回登录成功
-            if(user.getPassword().equals(userMap.get("password"))){
-                map.put("retCode","1");
+        if (userObj != null && !"".equals(userObj)) {
+            Map<String, String> userMap = (Map) JSON.parseObject(userObj);
+//            如果密码一致返回登录成功 , 0:用户不存在，1:登录成功， 2：密码错误， 3：未激活
+            if (Integer.parseInt(userMap.get("status")) != 0) {
+                if (user.getPassword().equals(userMap.get("password"))) {
+                    map.put("retCode", "1");
+                }
+            } else {
+                map.put("retCode", "3");
             }
+
         }
         return map;
     }

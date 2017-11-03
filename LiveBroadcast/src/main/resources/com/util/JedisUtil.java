@@ -44,7 +44,9 @@ public class JedisUtil {
 		Jedis jedis = null;//声明jedis对象
 		int cycleTimes = 0;//出现异常已经循环获取的次数
 		try{
+			System.out.println("JedisPool Object :"+jedisPool.toString());
 			jedis = jedisPool.getResource();//从pool中获取jedis对象
+			System.out.println("Jedis Object :"+jedis);
 		}catch (JedisConnectionException ex) {
 			try {
 				//获取占用异常,捕获异常,等待0.5秒后继续执行获取
