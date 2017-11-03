@@ -43,13 +43,15 @@
 	$(function(){
 		if(isNotEmpty(useInfo)){
 			$("#li4").after("<li id='li5' onclick=\"LiveTypeInfo('myCollect',1,0)\" class='bold' style='margin-top: 40px'><a class=' waves-effect waves-teal ' style='font-weight:bold;color: #804d62;font-size: 16px' onclick='Materialize.showStaggeredList(\"#staggered-test\")'>我的关注</a></li>" +
-					"<li id='staggered-test' onclick=\"clearSession()\" class='bold'><a class=' waves-effect waves-teal ' style='font-weight:bold;color: #804d62;font-size: 16px''>跑路</a></li>");
+					"<li id='staggered-test' onclick=\"clearSession()\" class='bold'><a class=' waves-effect waves-teal ' style='font-weight:bold;color: #804d62;font-size: 16px'>溜了</a></li>");
 		}else{
 			$("#li4").after("<li id='li5' onclick=\"LiveTypeInfo('myCollect',1,0)\" class='bold' style='margin-top: 40px'><a data-target='modal1' class='modal-trigger waves-effect waves-teal ' style='font-weight:bold;color: #804d62;font-size: 16px'>我的关注</a></li>");
 		}
+		$("#ZGIndex").css('display','block');
 		$.ajax({
 			url:"liveInit/initC",
 			success:function(date){
+				$("#ZGIndex").css('display','none');
 				var date = eval(date);
 				returnLiveInfo = date;
 				if(isNotEmpty(returnLiveInfo.userNameCollectInfo)){
@@ -127,7 +129,7 @@
 				if(uPattern.test($(this).val())){
 					$(this).addClass("valid");
 					$("label[for=user_name]").attr("data-success","right");
-				}else{
+				}else if($(this).val() != ""){
 					$(this).addClass("invalid");
 					$("label[for=user_name]").attr("data-error","wrong");
 				}
@@ -136,7 +138,7 @@
 				if(ePattern.test($(this).val())){
 					$(this).addClass("valid");
 					$("label[for=email]").attr("data-success","right");
-				}else{
+				}else if($(this).val() != ""){
 					$(this).addClass("invalid");
 					$("label[for=email]").attr("data-error","wrong");
 				}
@@ -146,20 +148,20 @@
 				if(uPattern.test($(this).val())){
 					$(this).addClass("valid");
 					$("label[for=password]").attr("data-success","right");
-				}else{
+				}else if($(this).val() != ""){
 					$(this).addClass("invalid");
 					$("label[for=password]").attr("data-error","wrong");
 				}
 
 			} else if(type == "confirm_password"){
-				if($("#password").hasClass("invalid")){
+				if($("#password").hasClass("invalid") && $(this).val() != ""){
 					$(this).addClass("invalid");
 					$("label[for=confirm_password]").attr("data-error","wrong");
 				}else{
 					if($(this).val() == $("#password").val()){
 						$(this).addClass("valid");
 						$("label[for=confirm_password]").attr("data-success","right");
-					}else{
+					}else if($(this).val() != ""){
 						$(this).addClass("invalid");
 						$("label[for=confirm_password]").attr("data-error","wrong");
 					}
@@ -179,6 +181,8 @@
 			}
 			if(judge == 1){
 				$("#submit").attr("disabled",false);
+			}else{
+				$("#submit").attr("disabled",true);
 			}
 		})
 	})
@@ -457,7 +461,7 @@
 
 //	登录 & 注册
 	function sub(){
-		console.log($("#type").attr("mode"));
+		$("#ZGIndex").css('display','block');
 		if($("#type").attr("mode")=="signIn"){
 			$.ajax({
 				type : "post",
@@ -467,9 +471,17 @@
 					"password" : $("#password").val(),
 				},
 				success : function(data){
+					$("#ZGIndex").css('display','none');
 					if(data.retCode == "1"){
 						location.reload();
-					}else{
+					}else if(data.retCode == "0"){
+						$("#cue").html("用户不存在！")
+						$("#modalAlert").modal("open");
+					}else if(data.retCode == "3"){
+						$("#cue").html("用户未激活，请前往邮箱进行激活！")
+						$("#modalAlert").modal("open");
+					}
+					else{
 						$("#cue").html("用户名密码不匹配！")
 						$("#modalAlert").modal("open");
 					}
@@ -487,6 +499,10 @@
 					"mod" : "signUp"
 				},
 				success : function(data){
+<<<<<<< HEAD
+=======
+					$("#ZGIndex").css('display','none');
+>>>>>>> 54c17db9982abb10552572578b78b5045331024f
 					if(data.retCode == "1"){
 						$("#cue").html("注册成功，前往邮箱激活！")
 						$("#modalAlert").modal("open");
@@ -532,10 +548,12 @@
 
 //	清除session
 	function clearSession(){
+		$("#ZGIndex").css('display','block');
 		$.ajax({
 			url: "user/signOut",
 			type: "post",
 			success: function () {
+				$("#ZGIndex").css('display','none');
 				window.location.reload();
 			}
 		})
@@ -679,4 +697,19 @@
         });
     });
 </script>
+<div id="ZGIndex" class="modal-overlay" style="z-index: 1006; display: none; opacity: 0.5;">
+	<div style="margin: 30% 50% 50% 50%">
+		<div class="preloader-wrapper big active" style="z-index:1007">
+			<div class="spinner-layer spinner-blue">
+				<div class="circle-clipper left">
+					<div class="circle"></div>
+				</div><div class="gap-patch">
+				<div class="circle"></div>
+			</div><div class="circle-clipper right">
+				<div class="circle"></div>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
 </html>
