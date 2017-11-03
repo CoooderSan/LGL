@@ -56,7 +56,7 @@ public class UserController {
 				response.sendRedirect(contextPath + "/");
             }catch (Exception e){
 				logger.debug(e);
-				map.put("retCode","激活失败，门口池大爷说了他懒癌犯了，不想写错误页面，请自行返回 www.cooodersan.xin ");
+				response.sendRedirect(contextPath + "/html/error.html");
 
             }
         }

@@ -69,7 +69,7 @@
     </servlet-mapping >
      <servlet-mapping >
          <servlet-name >default </servlet-name >             
-         <url-pattern >*.htm</url-pattern>        
+         <url-pattern >*.html</url-pattern>
     </servlet-mapping >
      <servlet-mapping >
          <servlet-name >default </servlet-name >             
