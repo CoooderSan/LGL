@@ -37,7 +37,7 @@ public class UserController {
     @RequestMapping(value = "/register")
 	@ResponseBody
     public Map<String, String> register(HttpServletRequest request, User user, HttpServletResponse response) throws Exception{
-		Map<String, String> map = new HashMap<>();
+		Map<String, String> map = new HashMap<String, String>();
 		String contextPath = request.getContextPath();
         String mod = request.getParameter("mod");
 
